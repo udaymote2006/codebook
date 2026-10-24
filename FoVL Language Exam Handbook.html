@@ -1,0 +1,1423 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>FoVL Language Exam Handbook</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Layout: Part 1's system (dark hero, sticky contents rail, ruled sections, serif body) re-coloured with
+   part-of-speech tag colours, because Part 2 is about language the way Part 1 was about segmentation masks. */
+:root{
+  --ink:#14161C; --ink-soft:#4B5260; --ink-faint:#737B8A;
+  --paper:#ECEEF1; --surface:#FFFFFF; --surface-2:#F5F6F9; --line:#D2D7E0; --line-soft:#E3E7ED;
+  /* tag colours: noun, verb, adjective, determiner, preposition, pronoun */
+  --nn:#1F6F8B; --vb:#B83A2E; --jj:#6C4FA0; --dt:#7A808C; --in:#B9770E; --prp:#3D7F4F;
+  --accent:var(--nn); --accent-2:var(--in); --warn:var(--vb); --good:var(--prp);
+  --tint-nn:#E4EFF3; --tint-vb:#F8E7E4; --tint-jj:#EEE9F6; --tint-in:#F8EEDD; --tint-prp:#E6F1E8;
+  --hero:#14161C; --hero-ink:#ECEEF1; --th:#14161C; --th-ink:#ECEEF1;
+  --maxw:74ch;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --ink:#E8EAEE; --ink-soft:#A8B0BE; --ink-faint:#7C8493;
+  --paper:#12141A; --surface:#191C24; --surface-2:#1F232C; --line:#2E3440; --line-soft:#252A33;
+  --nn:#6FB7D2; --vb:#F08A7E; --jj:#B49BE0; --dt:#A4AAB5; --in:#E9B55C; --prp:#86C79A;
+  --tint-nn:#14232A; --tint-vb:#2A1816; --tint-jj:#1F1A2B; --tint-in:#2A2214; --tint-prp:#162419;
+  --hero:#0C0E13; --hero-ink:#ECEEF1; --th:#2A303B; --th-ink:#E8EAEE; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --ink:#E8EAEE; --ink-soft:#A8B0BE; --ink-faint:#7C8493;
+  --paper:#12141A; --surface:#191C24; --surface-2:#1F232C; --line:#2E3440; --line-soft:#252A33;
+  --nn:#6FB7D2; --vb:#F08A7E; --jj:#B49BE0; --dt:#A4AAB5; --in:#E9B55C; --prp:#86C79A;
+  --tint-nn:#14232A; --tint-vb:#2A1816; --tint-jj:#1F1A2B; --tint-in:#2A2214; --tint-prp:#162419;
+  --hero:#0C0E13; --hero-ink:#ECEEF1; --th:#2A303B; --th-ink:#E8EAEE; color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Source Serif 4",Georgia,serif;font-size:17px;line-height:1.66;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4,.ui,nav,button,th,.tag{font-family:"Archivo",system-ui,sans-serif}
+code,.mono,.formula{font-family:"IBM Plex Mono",ui-monospace,monospace}
+h1,h2,h3,h4,p,ul,ol,table{margin-top:0}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid var(--accent-2);outline-offset:3px;border-radius:3px}
+p,li,td{overflow-wrap:break-word}
+
+/* hero */
+.hero{background:var(--hero);color:var(--hero-ink);border-bottom:6px solid var(--nn);
+  padding-block:clamp(40px,6vw,76px) clamp(36px,5vw,60px);
+  padding-left:max(clamp(20px,5vw,64px), env(safe-area-inset-left, 0px));padding-right:max(clamp(20px,5vw,64px), env(safe-area-inset-right, 0px))}
+.hero-grid{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(24px,5vw,60px);align-items:center}
+.hero h1{font-size:clamp(2.1rem,5.2vw,4.1rem);line-height:.98;letter-spacing:-.035em;font-weight:700;margin:0 0 18px;color:#fff;text-wrap:balance}
+.hero .course{font-family:"IBM Plex Mono",monospace;font-size:.78rem;letter-spacing:.14em;color:#9FD0E2;margin-bottom:22px;display:block}
+.hero p{color:#B9C0CC;font-size:1.08rem;max-width:56ch;margin:0 0 22px}
+.hero-stats{display:flex;flex-wrap:wrap;gap:10px}
+.hero-stats span{font-family:"Archivo",sans-serif;font-size:.84rem;font-weight:500;padding:7px 12px;border:1px solid rgba(255,255,255,.22);border-radius:2px;color:#DDE2EA}
+.tagline{border:1px solid rgba(255,255,255,.18);padding:14px;background:rgba(255,255,255,.04);display:flex;flex-direction:column;gap:12px}
+.sent{display:flex;flex-wrap:wrap;gap:6px}
+.tok{display:flex;flex-direction:column;align-items:flex-start;gap:4px;min-width:0}
+.tok b{font-family:"Source Serif 4",serif;font-weight:400;font-size:1.05rem;color:#fff;padding:6px 9px;border-radius:2px;line-height:1.1}
+.tok i{font-family:"IBM Plex Mono",monospace;font-style:normal;font-size:.64rem;color:#98A0AE;letter-spacing:.05em}
+.t-nn b{background:var(--nn)} .t-vb b{background:var(--vb)} .t-jj b{background:var(--jj)} .t-dt b{background:#5C626E} .t-in b{background:var(--in)} .t-prp b{background:var(--prp)}
+:root[data-theme="dark"] .tok b{color:#0C0E13}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .tok b{color:#0C0E13}}
+.arcs{font-family:"IBM Plex Mono",monospace;font-size:.68rem;color:#98A0AE;line-height:1.5}
+.arcs em{font-style:normal;color:#E9B55C}
+.quiznow{margin-top:18px;border-left:4px solid var(--in);background:rgba(255,255,255,.06);padding:12px 16px;max-width:60ch}
+.quiznow strong{font-family:"Archivo",sans-serif;color:#fff}
+.quiznow p{margin:4px 0 0;font-size:.95rem}
+
+/* layout */
+.wrap{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:238px minmax(0,1fr);gap:clamp(20px,3.5vw,48px);
+  padding-block:36px 90px;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+@media (min-width:700px){.wrap{padding-left:max(32px, env(safe-area-inset-left, 0px));padding-right:max(32px, env(safe-area-inset-right, 0px))}}
+.rail{position:sticky;top:calc(18px + env(safe-area-inset-top, 0px));align-self:start;max-height:calc(100vh - 36px);overflow-y:auto;padding-right:6px}
+.rail h4{font-size:.72rem;letter-spacing:.13em;color:var(--ink-faint);margin:0 0 10px;font-weight:600;text-transform:uppercase}
+.rail nav{display:flex;flex-direction:column;border-left:2px solid var(--line)}
+.rail a{display:block;padding:6px 0 6px 13px;margin-left:-2px;border-left:2px solid transparent;color:var(--ink-soft);text-decoration:none;font-size:.86rem;line-height:1.35;font-weight:500}
+.rail a:hover{color:var(--accent);border-left-color:var(--accent)}
+.rail a.lec{display:grid;grid-template-columns:24px 1fr;gap:6px;align-items:baseline}
+.rail a.lec em{font-family:"IBM Plex Mono",monospace;font-style:normal;font-size:.72rem;color:var(--ink-faint)}
+.rail a.done span::after{content:" ✓";color:var(--good)}
+.rail .grp{margin-top:16px}
+.rail .who{font-family:"IBM Plex Mono",monospace;font-size:.66rem;letter-spacing:.08em;color:var(--ink-faint);padding:12px 0 2px 13px;text-transform:uppercase}
+main{min-width:0}
+section{margin-bottom:64px;scroll-margin-top:20px}
+section>p,section>ul,section>ol{max-width:var(--maxw)}
+h2{font-size:clamp(1.55rem,3vw,2.3rem);line-height:1.08;letter-spacing:-.025em;font-weight:700;margin-bottom:6px;text-wrap:balance}
+h3{font-size:1.16rem;font-weight:600;margin:32px 0 10px;letter-spacing:-.01em;text-wrap:balance}
+h4{font-size:.95rem;font-weight:600;margin:22px 0 8px}
+.dek{color:var(--ink-soft);font-size:1.02rem;max-width:64ch;margin-bottom:26px}
+.rule{height:3px;background:var(--ink);width:44px;margin:0 0 18px}
+.lec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:4px;flex-wrap:wrap}
+.lec-head h2{min-width:0}
+.lec-num{font-family:"IBM Plex Mono",monospace;font-size:.76rem;font-weight:500;color:#fff;background:var(--nn);padding:4px 9px;border-radius:2px;letter-spacing:.06em;white-space:nowrap}
+.lec-num.d{background:var(--jj)}
+:root[data-theme="dark"] .lec-num{color:#0C0E13}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .lec-num{color:#0C0E13}}
+.lec-topics{font-family:"IBM Plex Mono",monospace;font-size:.74rem;color:var(--ink-faint);margin-bottom:10px}
+.srcline{font-family:"Archivo",sans-serif;font-size:.78rem;color:var(--ink-faint);margin-bottom:14px}
+.card{background:var(--surface);border:1px solid var(--line);padding:20px 22px;margin:20px 0}
+.card h4{margin-top:0}
+.cards{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));margin:20px 0}
+.cards .card{margin:0;min-width:0}
+.note{border-left:4px solid var(--accent);background:var(--tint-nn);padding:16px 20px;margin:20px 0;max-width:var(--maxw)}
+.note.warn{border-left-color:var(--vb);background:var(--tint-vb)}
+.note.good{border-left-color:var(--prp);background:var(--tint-prp)}
+.note.amber{border-left-color:var(--in);background:var(--tint-in)}
+.note.jj{border-left-color:var(--jj);background:var(--tint-jj)}
+.note p:last-child,.card p:last-child,.card ul:last-child,.card ol:last-child,.note ul:last-child{margin-bottom:0}
+.note strong:first-child{font-family:"Archivo",sans-serif;font-weight:600}
+.formula{display:block;background:var(--surface-2);border:1px solid var(--line-soft);padding:13px 16px;margin:14px 0;font-size:.92rem;overflow-x:auto;max-width:var(--maxw);white-space:pre}
+code{background:var(--surface-2);padding:1px 5px;font-size:.87em;border:1px solid var(--line-soft)}
+.src{font-family:"IBM Plex Mono",monospace;font-size:.72rem;color:var(--ink-faint);white-space:nowrap}
+p.src{white-space:normal}
+.lec-num{max-width:100%}
+.tw{overflow-x:auto;margin:20px 0;border:1px solid var(--line);background:var(--surface)}
+table{width:100%;border-collapse:collapse;min-width:520px;font-size:.93rem}
+th{background:var(--th);color:var(--th-ink);text-align:left;padding:11px 14px;font-size:.76rem;letter-spacing:.05em;font-weight:600}
+td{padding:11px 14px;border-top:1px solid var(--line-soft);vertical-align:top}
+tbody tr:nth-child(even){background:var(--surface-2)}
+td.k{font-family:"Archivo",sans-serif;font-weight:600;color:var(--accent);white-space:nowrap}
+td.n,th.n{text-align:right;font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+.chain{display:flex;flex-wrap:wrap;align-items:stretch;margin:22px 0}
+.chain .step{flex:1 1 150px;min-width:140px;background:var(--surface);border:1px solid var(--line);border-right:none;padding:13px 15px}
+.chain .step:last-child{border-right:1px solid var(--line)}
+.chain .step b{display:block;font-family:"Archivo",sans-serif;font-size:.92rem;font-weight:600;margin-bottom:3px}
+.chain .step span{font-size:.82rem;color:var(--ink-soft);line-height:1.4;display:block}
+.chain.fail .step{border-top:3px solid var(--vb)}
+.chain.fix .step{border-top:3px solid var(--prp)}
+.chain.nn .step{border-top:3px solid var(--nn)}
+details.drill{border:1px solid var(--line);background:var(--surface);margin:10px 0;max-width:var(--maxw)}
+details.drill summary{cursor:pointer;padding:13px 17px;font-family:"Archivo",sans-serif;font-weight:500;font-size:.95rem;list-style:none;display:flex;gap:11px;align-items:flex-start}
+details.drill summary::-webkit-details-marker{display:none}
+details.drill summary::before{content:"?";font-family:"IBM Plex Mono",monospace;font-size:.76rem;color:#fff;background:var(--ink-faint);width:19px;height:19px;min-width:19px;display:inline-flex;align-items:center;justify-content:center;margin-top:2px;border-radius:2px}
+details.drill[open] summary::before{content:"!";background:var(--prp)}
+details.drill[open] summary{border-bottom:1px solid var(--line-soft)}
+details.drill .ans{padding:14px 17px 16px;font-size:.96rem}
+details.drill .ans p:last-child{margin-bottom:0}
+.drill-tag{font-family:"IBM Plex Mono",monospace;font-size:.66rem;color:var(--ink-faint);letter-spacing:.06em;margin-left:auto;white-space:nowrap;padding-top:3px}
+.drill-tag.asked{color:var(--vb)}
+.fc-grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));margin-top:18px}
+.fc{perspective:900px;min-height:132px;cursor:pointer;background:none;border:none;padding:0;text-align:left;font:inherit;color:inherit}
+.fc-in{position:relative;display:block;width:100%;height:100%;min-height:132px;transition:transform .5s;transform-style:preserve-3d}
+.fc[aria-pressed="true"] .fc-in{transform:rotateY(180deg)}
+.fc-face{position:absolute;inset:0;display:flex;align-items:center;padding:16px;backface-visibility:hidden;border:1px solid var(--line);font-size:.92rem;line-height:1.42;color:var(--ink)}
+.fc-front{background:var(--surface);font-family:"Archivo",sans-serif;font-weight:500}
+.fc-back{background:var(--tint-nn);transform:rotateY(180deg)}
+.q{background:var(--surface);border:1px solid var(--line);padding:17px 20px;margin-bottom:12px;max-width:var(--maxw)}
+.q p.stem{font-weight:600;font-family:"Archivo",sans-serif;font-size:.97rem;margin-bottom:11px}
+.q p.who{font-family:"IBM Plex Mono",monospace;font-size:.66rem;color:var(--ink-faint);margin:0 0 4px;letter-spacing:.06em}
+.q label{display:block;padding:6px 0 6px 2px;color:var(--ink-soft);cursor:pointer;font-size:.94rem}
+.q label input{margin-right:9px;accent-color:var(--nn)}
+.q label.right{color:var(--prp);font-weight:600}
+.q label.wrong{color:var(--vb);font-weight:600;text-decoration:line-through}
+.q .why{margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);font-size:.89rem;color:var(--ink-soft);display:none}
+.q.done .why{display:block}
+button.act{font-family:"Archivo",sans-serif;font-weight:600;font-size:.92rem;cursor:pointer;background:var(--ink);color:var(--paper);border:none;padding:11px 20px;border-radius:2px}
+button.act.ghost{background:none;color:var(--ink-soft);border:1px solid var(--line)}
+.quiz-bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:16px}
+#score{font-family:"Archivo",sans-serif;font-weight:600}
+.check{display:flex;align-items:center;gap:9px;font-family:"Archivo",sans-serif;font-size:.8rem;color:var(--ink-faint);margin-bottom:20px;cursor:pointer;width:fit-content}
+.check input{width:15px;height:15px;accent-color:var(--prp)}
+.theme-btn{position:fixed;right:calc(14px + env(safe-area-inset-right, 0px));bottom:calc(14px + env(safe-area-inset-bottom, 0px));z-index:40;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:2px;padding:9px 13px;font-family:"Archivo",sans-serif;font-size:.78rem;font-weight:600;cursor:pointer;box-shadow:0 3px 14px rgba(0,0,0,.14)}
+footer{background:var(--hero);color:#9AA2B0;font-size:.87rem;padding-block:34px;padding-left:max(20px, env(safe-area-inset-left, 0px));padding-right:max(20px, env(safe-area-inset-right, 0px))}
+footer p{max-width:70ch;margin:0 auto 6px;text-align:center}
+ul,ol{padding-left:1.25em}
+li{margin-bottom:5px}
+li::marker{color:var(--ink-faint)}
+.tight li{margin-bottom:2px}
+.pill{display:inline-block;font-family:"IBM Plex Mono",monospace;font-size:.68rem;padding:2px 6px;border:1px solid var(--line);color:var(--ink-faint);border-radius:2px;margin-right:4px;vertical-align:1px}
+@media (max-width:1000px){
+  .wrap{grid-template-columns:1fr;padding-top:24px}
+  .rail{position:static;max-height:none;border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:6px}
+  .rail nav{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));border-left:none;gap:0 14px}
+  .rail a{border-left:none;padding-left:0}
+  .rail .who{padding-left:0;grid-column:1/-1}
+  .hero-grid{grid-template-columns:1fr}
+}
+@media (max-width:560px){body{font-size:16px}.chain .step{border-right:1px solid var(--line);flex-basis:100%}.chain .step:not(:last-child){border-bottom:none}}
+</style>
+
+<header class="hero">
+  <div class="hero-grid">
+    <div>
+      <span class="course">FOUNDATION OF VISION &amp; LANGUAGE · PART 2 OF 3 · LANGUAGE · 13 LECTURES</span>
+      <h1>The language half, rebuilt for the exam.</h1>
+      <p>Eight lectures of traditional NLU with Prof. Sidharth Ranjan and five of modern NLU with Prof. Deeksha Varshney, reorganised around what each one said would be examined. Prof. Ranjan: derive it, then compute it. Prof. Varshney: know why each fix exists.</p>
+      <div class="hero-stats">
+        <span>13 lectures · 2 instructors</span>
+        <span>11 worked cases</span>
+        <span>67 scenario drills</span>
+        <span>25-question mock</span>
+        <span>2 labs</span>
+      </div>
+      <div class="quiznow"><strong>Quiz: Sat 24 Oct, 7:00–8:00 PM.</strong>
+        <p>Both instructors, about half an hour each. Prof. Varshney's half: about 10 MCQ/MSQ in about 20 minutes, up to the Oct 19 class. Her Oct 23 RNN class is not in it.</p></div>
+    </div>
+    <div class="mask-wrap" aria-hidden="true">
+      <div class="tagline">
+        <div class="sent">
+          <span class="tok t-prp"><b>I</b><i>PRP</i></span>
+          <span class="tok t-vb"><b>shot</b><i>VBD</i></span>
+          <span class="tok t-dt"><b>an</b><i>DT</i></span>
+          <span class="tok t-nn"><b>elephant</b><i>NN</i></span>
+          <span class="tok t-in"><b>in</b><i>IN</i></span>
+          <span class="tok t-prp"><b>my</b><i>PRP$</i></span>
+          <span class="tok t-nn"><b>pajamas</b><i>NNS</i></span>
+        </div>
+        <div class="arcs">PP attaches to <em>shot</em> → you wore the pajamas<br>PP attaches to <em>elephant</em> → the elephant did<br>P(parse a) vs P(parse b) decides. · R8 00:49:30</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+<aside class="rail">
+  <h4>Contents</h4>
+  <nav>
+    <a href="#how">How this paper is set</a>
+    <a href="#spine">The course spine</a>
+    <div class="who">Prof. Ranjan · traditional</div>
+    <a class="lec" href="#r1" data-lec="r1"><em>R1</em><span>What language is</span></a>
+    <a class="lec" href="#r2" data-lec="r2"><em>R2</em><span>Marr, Turing, Pirahã</span></a>
+    <a class="lec" href="#r3" data-lec="r3"><em>R3</em><span>NLP, CL, NLU, ELIZA</span></a>
+    <a class="lec" href="#r4" data-lec="r4"><em>R4</em><span>Zipf, Shannon, entropy</span></a>
+    <a class="lec" href="#r5" data-lec="r5"><em>R5</em><span>Conditional entropy, MI, KL</span></a>
+    <a class="lec" href="#r6" data-lec="r6"><em>R6</em><span>Perplexity, n-grams</span></a>
+    <a class="lec" href="#r7" data-lec="r7"><em>R7</em><span>Smoothing and SRILM</span></a>
+    <a class="lec" href="#r8" data-lec="r8"><em>R8</em><span>HMM tagging, syntax</span></a>
+    <div class="who">Prof. Varshney · modern</div>
+    <a class="lec" href="#d1" data-lec="d1"><em>D1</em><span>Networks to word vectors</span></a>
+    <a class="lec" href="#d2" data-lec="d2"><em>D2</em><span>word2vec skip-gram</span></a>
+    <a class="lec" href="#d3" data-lec="d3"><em>D3</em><span>Negative sampling, GloVe</span></a>
+    <a class="lec" href="#d4" data-lec="d4"><em>D4</em><span>Embedding limits, LMs</span></a>
+    <a class="lec" href="#d5" data-lec="d5"><em>D5</em><span>RNN LMs, BIO</span></a>
+    <div class="grp"></div>
+    <a href="#cases">Eleven worked cases</a>
+    <a href="#confuse">Confusion killers</a>
+    <a href="#drills">Scenario drill bank</a>
+    <a href="#labs">The two labs</a>
+    <a href="#homework">Open questions</a>
+    <a href="#cards">Flashcards</a>
+    <a href="#quiz">Mock quiz</a>
+    <a href="#sheet">Night-before sheet</a>
+    <a href="#logistics">Logistics</a>
+    <a href="#sources">Sources and conflicts</a>
+  </nav>
+</aside>
+
+<main>
+
+<!-- ============ HOW ============ -->
+<section id="how">
+<div class="rule"></div>
+<h2>How this paper is set</h2>
+<p class="dek">Two instructors, two styles. Prof. Ranjan told the class what he would ask more often than Part 1's instructor did. Prof. Varshney said less, but her classes show what she cares about.</p>
+
+<h3>Prof. Sidharth Ranjan: derive it, then compute it</h3>
+<div class="note">
+  <strong>His stated position:</strong> "You may expect some questions in the exam on various derivations, because if you know how to derive, you know how it works. And if you know how it works, you have better understanding." Also: "Whatever we studied in the class, you may expect questions about that. And something which I'm specifically mentioning that this will be part of exam." <span class="src">R6 00:22:12 · 00:24:02</span>
+</div>
+<div class="cards">
+  <div class="card"><h4>What is not asked</h4>
+    <ul class="tight"><li>Anything from the documentaries themselves ("you won't expect a question from documentary") <span class="src">R6 00:24:02</span></li><li>The Turing–Shannon history and the Enigma narrative (no exam signal)</li><li>Writing n-gram code by hand ("that was not required; use the binaries") <span class="src">R8 00:59:05</span></li></ul></div>
+  <div class="card"><h4>What is asked</h4>
+    <ul class="tight"><li>Derive conditional entropy, the chain rule, and why MI is symmetric</li><li>Explain entropy and what it says about a symbol sequence</li><li>When are two perplexities comparable</li><li>Best tag sequence from π, A and B tables</li><li>Basic MCQs on class content, including Pirahã</li></ul></div>
+  <div class="card"><h4>His recurring test</h4>
+    <p>Can you state the caveat? Entropy says nothing about order. Perplexity needs the same vocabulary. Unseen is not rare. A fluent reply is not understanding. He asked for the caveat every time.</p></div>
+  <div class="card" style="border-top:3px solid var(--prp)"><h4>Where his questions come from</h4>
+    <p>The slides' <em>Question</em>, <em>In-class Exercise</em> and <em>Activity</em> boxes (8-sided die, coin, MI symmetry, the Sam corpus, "killer clown"), plus whatever he computed live and matched against SRILM.</p></div>
+</div>
+<p>His six direct exam statements, in his words:</p>
+<ol>
+  <li>"Can you explain the concept of entropy, and what does it say about a given symbol sequence? This could be an exam question as well." <span class="src">R5 01:10:44</span></li>
+  <li>Write I(X;Y) in terms of p(x) and p(y) and prove I(X;Y) = I(Y;X): "Can you prove this in exam if I give you?" <span class="src">R5 01:11:52</span></li>
+  <li>Expect derivations, "because I have spent some time with the derivations in the class and also on the slide". <span class="src">R6 00:22:12</span></li>
+  <li>"Tell me, which of the following options are correct about Pirahã language? … It's not a rocket science question." <span class="src">R6 00:24:02</span></li>
+  <li>"The perplexity of two language models is only comparable if they use identical vocab… these are very important points that I may ask you in the exam." <span class="src">R7 00:43:08</span></li>
+  <li>"In an exam, if I give you a word sequence, the emission table, the transition table and the start table, can you compute the most likely tag sequence?" <span class="src">R8 00:26:14</span></li>
+</ol>
+
+<h3>Prof. Deeksha Varshney: know why each fix exists</h3>
+<div class="note jj">
+  <strong>Her one named exam question:</strong> "There is a very famous question, which is usually asked: when do you apply sigmoid and softmax function?" Sigmoid for binary classification; softmax when you need a probability over all vocabulary words. <span class="src">D2 00:13:43</span>
+</div>
+<p>Her classes run half theory, half live coding. She asks online students to share screens, and anyone who doesn't is marked absent. Each method arrives as a fix for a named problem. A one-hot vector has no notion of similarity, so you need embeddings. The softmax denominator sums over 100,000 words, so you need negative sampling. Raw unigram sampling picks <em>the</em> and <em>of</em>, so you reshape it. <em>Dog</em> and <em>dogs</em> get unrelated vectors, so you need fastText. Expect MCQ/MSQ that names the problem and asks for the fix, or the reverse.</p>
+
+<h3>Three sentences that predict most of the paper</h3>
+<ol>
+  <li><strong>Context reduces uncertainty, and every formula measures how much.</strong> Entropy, conditional entropy, MI, perplexity, n-grams and HMMs all formalise "the next symbol is predictable from what came before". Prof. Ranjan built every lecture from R4 to R8 on this.</li>
+  <li><strong>Every computation is done by hand first, then checked by a tool.</strong> He worked the Sam corpus by hand and then showed SRILM giving the same 0.6, 0.227 and −2.0177 <span class="src">R7 01:05:29</span>. Expect the hand computation in the exam.</li>
+  <li><strong>Every modern method exists because the previous one failed at scale or at meaning.</strong> Counts are sparse, so learn vectors. Full softmax is slow, so sample negatives. Local windows miss global statistics, so use GloVe. Word-level vectors miss morphology, so use subwords.</li>
+</ol>
+</section>
+
+<!-- ============ SPINE ============ -->
+<section id="spine">
+<div class="rule"></div>
+<h2>The course spine</h2>
+<p class="dek">Prof. Ranjan opened his information-theory deck with one question and closed it with the answer. Everything in Part 2 hangs off it.</p>
+<div class="note amber"><strong>The question:</strong> "How can we computationally represent the structure of language?" <strong>His answer:</strong> "One is probability, another is finite-state machine." <span class="src">slide · InfoTheory 3 &amp; 62 · R6 01:24:50</span></div>
+<div class="chain nn">
+  <div class="step"><b>Language is structured</b><span>Form–meaning pairs; Zipf; 50% redundancy (R1–R4)</span></div>
+  <div class="step"><b>So it is predictable</b><span>Context shrinks the next-word choices (R4)</span></div>
+  <div class="step"><b>So we can measure it</b><span>H, H(Y|X), I, KL, then perplexity (R5–R6)</span></div>
+  <div class="step"><b>So we can model it</b><span>n-gram Markov chains for words, HMMs for hidden tags (R6–R8)</span></div>
+  <div class="step"><b>Then learn it</b><span>Vectors, skip-gram, GloVe, neural LMs, RNNs (D1–D5)</span></div>
+</div>
+<div class="tw"><table>
+<thead><tr><th>Block</th><th>Lectures</th><th>What it answers</th><th>Link to Part 1</th></tr></thead>
+<tbody>
+<tr><td class="k">What language is</td><td>R1–R3</td><td>Symbols, levels of explanation, why fluent output ≠ understanding</td><td>Marr's framework returns, now as three levels of explanation rather than visual stages</td></tr>
+<tr><td class="k">Measuring language</td><td>R4–R6</td><td>How predictable text is, in bits</td><td>Cross-entropy here is the same loss you used for classification</td></tr>
+<tr><td class="k">Sequence models</td><td>R6–R8</td><td>Probability of a sentence; best hidden tag path</td><td>Viterbi is dynamic programming, like reusing partial computations in vision pipelines</td></tr>
+<tr><td class="k">Learned representations</td><td>D1–D4</td><td>Words as dense vectors learned from context</td><td>CLIP (Part 1, L2) aligns text and image embeddings; this is where the text side comes from</td></tr>
+<tr><td class="k">Neural sequence models</td><td>D4–D5</td><td>Next-word prediction with state</td><td>Softmax over classes becomes softmax over the vocabulary</td></tr>
+</tbody></table></div>
+<p><strong>The single most reusable line:</strong> a language model is "nothing but a probability distribution over language" <span class="src">R6 00:33:50</span>. Every other topic either measures that distribution, estimates it, or learns it.</p>
+</section>
+
+<!-- ============ R1 ============ -->
+<section id="r1">
+<div class="lec-head"><span class="lec-num">RANJAN · R1</span><h2>What language is, and what it is for</h2></div>
+<div class="lec-topics">window to mind · symbolic function · interactive function · form–meaning pair · concept ← percept · projected reality · underspecification</div>
+<div class="srcline">Sat 5 Sep · Tactiq live 1 h 41 m + video Lec1 · slides Introduction-Language 1–21 · Notion ✓</div>
+<label class="check"><input type="checkbox" data-rev="r1"> mark this lecture revised</label>
+
+<h3>The definition he built</h3>
+<p>Language reflects patterns of thought and offers a window to the mind. You study it to describe its systematicity, its structure, and how its functions are realised <span class="src">slide 7</span>. The question he wants you to ask is not only "how do I manipulate this string of words?" but "what kind of cognitive or representational system could produce this behaviour?" <span class="src">slide 8</span>.</p>
+
+<h3>Two functions</h3>
+<div class="cards">
+  <div class="card"><h4>Symbolic function</h4><p>Language expresses itself through symbols: sub-word parts (<em>dis-</em> in <em>distaste</em>), whole words (<em>cat, run, tomorrow</em>) and strings of words. Each symbol pairs a <strong>form</strong> (spoken, written or signed) with a conventional <strong>meaning</strong>.</p></div>
+  <div class="card"><h4>Interactive function</h4><p>Getting ideas across: thought → linguistic representation → signal → linguistic representation → reconstructed thought. The listener rebuilds the idea; nothing is copied directly. <span class="src">slide 18</span></p></div>
+</div>
+
+<h3>Why language cannot transmit reality</h3>
+<div class="chain">
+  <div class="step"><b>World</b><span>A pear: shape, colour, texture, taste, smell</span></div>
+  <div class="step"><b>Percepts</b><span>Different brain areas perceive each property</span></div>
+  <div class="step"><b>Concept</b><span>Integrated into one mental image: PEAR</span></div>
+  <div class="step"><b>Form</b><span>The word that convention pairs with that concept</span></div>
+</div>
+<div class="note">
+  <strong>The line to quote:</strong> "Language does not directly represent the external world. It represents our conceptualized experience or thoughts." <span class="src">R1 00:59:33</span> And: "Language doesn't transmit reality; it transmits symbols that allow us to reconstruct conceptualized reality." <span class="src">R1 01:17:05</span> The word <em>cat</em> is not the animal; it lets us reach the concept when no cat is present (slide 12, "projected reality").
+</div>
+
+<h3>The example he used for underspecification</h3>
+<p>"The cat jumped over the wall." <em>Over</em> allows a range of trajectories, and <em>jump</em> fixes neither the orientation nor the shape. "How much information does language actually specify, and how much does the listener have to infer?" <span class="src">slide 17 · R1 01:26:52</span> This is the root of the ambiguity problem in R3 and the motivation for probabilistic models later.</p>
+
+<div class="note good"><strong>The one sentence to memorise:</strong> a word is a conventional form paired with a concept built from percepts, so language sends symbols for a projected reality, and the listener reconstructs it.</div>
+</section>
+
+<!-- ============ R2 ============ -->
+<section id="r2">
+<div class="lec-head"><span class="lec-num">RANJAN · R2</span><h2>Can a machine understand? Marr's levels and the Turing tests</h2></div>
+<div class="lec-topics">NLU as information processing · tri-level hypothesis · robot-fly activity · top-down / bottom-up · Turing test · Total Turing test · Pirahã and recursion</div>
+<div class="srcline">Fri 11 Sep · Tactiq live 1 h 30 m + video Lec2 · slides 22–32 · Notion ✓ (2 pages)</div>
+<label class="check"><input type="checkbox" data-rev="r2"> mark this lecture revised</label>
+
+<h3>The problem that motivated it</h3>
+<p>If language is tied to thought, "can machines understand language?" becomes "can machines think?". From there it becomes "can we reverse-engineer cognitive processes like language and perception?" <span class="src">slide 22</span>. To answer it you need a way to describe <em>any</em> information-processing system, brain or machine.</p>
+
+<h3>Marr's three levels</h3>
+<div class="tw"><table>
+<thead><tr><th>Level</th><th>Question</th><th>Robot-fly answer accepted in class</th></tr></thead>
+<tbody>
+<tr><td class="k">Computational</td><td>What is the goal, and why? What is the logic of the strategy?</td><td>Make the robot fly. The motivation is what drives the task</td></tr>
+<tr><td class="k">Algorithmic</td><td>How? What representation for input and output, and what transformation?</td><td>Flap the wings → generate thrust → lift (aerodynamics, balance)</td></tr>
+<tr><td class="k">Implementation</td><td>With what physical substrate?</td><td>Wings, motors, sensors, actuators, lightweight body</td></tr>
+</tbody></table></div>
+<div class="note warn"><strong>Correction he made in class:</strong> "You directly jump to the method. That's the rush that all the computer engineers make." Start at the computational level, the what and the why, then derive the algorithm, then choose the hardware. He also showed how the levels confirm each other: "Level three confirms level two, and then level two explains level one." <span class="src">R2 00:44:01</span></div>
+<p>The workflow he concluded with: go <strong>top-down to design</strong> (goal → algorithm → hardware), then <strong>bottom-up to validate</strong> (does the hardware support the algorithm, and does the algorithm achieve the goal?). "Once you do both, then you are able to develop a better system." <span class="src">R2 00:52:27</span></p>
+
+<h3>Turing test vs Total Turing test</h3>
+<div class="cards">
+  <div class="card"><h4>Turing test (imitation game)</h4><p>A human interrogator in one room, a human or a machine in the other. If the interrogator cannot tell which is which, the machine counts as intelligent. "A functional definition where we are not really explaining what is intelligence." <span class="src">R2 00:58:58</span></p></div>
+  <div class="card"><h4>Total Turing test</h4><p>Adds perception and actuation: the machine must also perceive and physically act like a human, moving from the two-room setup to the real world. <span class="src">R2 01:03:12</span></p></div>
+</div>
+<p>To pass, a computer needs NLP, knowledge representation, automated reasoning, machine learning, vision, motor control and the other senses <span class="src">slide 30</span>. The vending machine slide asks how human communication connects to machine behaviour. A voice- or vision-driven vending machine maps perception to action.</p>
+
+<h3>Pirahã, the counter-example</h3>
+<p>Recursion was proposed as a prime feature that makes a language human and separates it from animal communication. Everett reported that Pirahã lacks it. Prof. Ranjan's verdict: "Nobody really understands the complete nature… majority of the languages have this property, so we will treat it as an outlier." Other tribal languages that were studied do show recursion, and Everett's analysis is itself contested. "This is still an ongoing question." <span class="src">R2 01:26:07 · 01:28:06</span></p>
+<div class="note amber"><strong>Exam favourite, his own example:</strong> an MCQ asking "which of the following options are correct about the Pirahã language?" <span class="src">R6 00:24:02</span>. Know the three facts: it is claimed to lack recursion, it challenges recursion as the defining feature of human language, and the debate is open.</div>
+<div class="note good"><strong>The one sentence to memorise:</strong> describe any intelligent system at three levels (goal, algorithm, hardware), designing top-down and validating bottom-up. The Turing test checks only conversational behaviour; the Total Turing test adds perceiving and acting.</div>
+</section>
+
+<!-- ============ R3 ============ -->
+<section id="r3">
+<div class="lec-head"><span class="lec-num">RANJAN · R3</span><h2>NLP, CL and NLU; ELIZA and SHRDLU; ambiguity</h2></div>
+<div class="lec-topics">NLP: language → information · CL: language → model · NLU · ELIZA 1966 · SHRDLU 1972 · building blocks · ambiguity · Firth · Shannon · NLP trinity</div>
+<div class="srcline">Sat 12 Sep · Tactiq live 1 h 28 m + video Lec3 · slides 33–50 · Notion ✓ (2 pages)</div>
+<label class="check"><input type="checkbox" data-rev="r3"> mark this lecture revised</label>
+
+<h3>Three names, one shared goal</h3>
+<div class="tw"><table>
+<thead><tr><th></th><th>NLP</th><th>CL</th><th>NLU</th></tr></thead>
+<tbody>
+<tr><td class="k">Focus</td><td>Engineering, application-oriented: IR, speech-to-text, sentiment</td><td>Studying linguistic phenomena with computational methods; part of a cognitive architecture</td><td>A system that meaningfully understands natural language</td></tr>
+<tr><td class="k">Arrow (slide 33)</td><td>Language → Information</td><td>Language → Model</td><td>Linguistic description → computational representation → empirical evaluation</td></tr>
+<tr><td class="k">In class</td><td>"The focus is more on the engineering side, with certain applications in mind" <span class="src">00:06:54</span></td><td>"Study various linguistic phenomena using computational methods" <span class="src">00:08:52</span></td><td>"It shares both the properties of computational linguistics as well as natural language processing" <span class="src">00:10:09</span></td></tr>
+</tbody></table></div>
+
+<h3>ELIZA vs SHRDLU</h3>
+<p>The question he kept asking: if a machine can fool you into thinking it is human, have we reached natural language understanding? <span class="src">slide 34</span></p>
+<div class="chain fail">
+  <div class="step"><b>ELIZA</b><span>Weizenbaum, MIT, 1966. A psychotherapist chatbot</span></div>
+  <div class="step"><b>Language</b><span>User input</span></div>
+  <div class="step"><b>Pattern matching</b><span>Surface keywords and templates; it reuses the user's words</span></div>
+  <div class="step"><b>Response</b><span>Looks appropriate, but no real analysis</span></div>
+</div>
+<div class="chain fix">
+  <div class="step"><b>SHRDLU</b><span>Winograd, 1972. A micro-world of blocks</span></div>
+  <div class="step"><b>Representation</b><span>Of objects and properties in the environment</span></div>
+  <div class="step"><b>Reasoning</b><span>Which object fits "the big red block"?</span></div>
+  <div class="step"><b>Action → Response</b><span>Picks it up, then says OK</span></div>
+</div>
+<p class="src">Both pipelines as he wrote them: R3 00:34:23, 00:35:42</p>
+<div class="note"><strong>His takeaway:</strong> "Producing an appropriate-looking response is not necessarily the same as understanding." <span class="src">R3 00:29:04</span> SHRDLU was more convincing because correct action requires understanding. It had domain-specific understanding, question answering and an early grammar-based English parser, and it was a "working proof" that language could be treated as procedural <span class="src">slide 39</span>.</div>
+
+<h3>Building blocks of an NLU system</h3>
+<ul>
+  <li><strong>Data:</strong> a text corpus, possibly multimodal or multilingual (Universal Dependencies), sometimes collected or annotated by crowdsourcing.</li>
+  <li><strong>Processing:</strong> symbolic grammars (e.g. the English Resource Grammar) or stochastic/ML models.</li>
+  <li><strong>Validation:</strong> against human performance, using performance metrics such as BLEU and cognitive metrics, which are harder to pin down. <span class="src">slide 40</span></li>
+  <li><strong>A typical setup:</strong> pick a corpus, turn a hypothesis into something measurable (e.g. "adjectives help sentiment"), build the model, validate internally and externally. <span class="src">slide 41</span></li>
+</ul>
+
+<h3>Ambiguity, the main challenge</h3>
+<p>"At last, a computer that understands you like your mother" (McDonnell-Douglas ad, 1985) has three readings: as well as your mother does; that you like your mother; as well as it understands your mother. The same slide adds three more problems:</p>
+<ul>
+  <li><strong>Speech:</strong> it might be heard as "…your lie cured mother".</li>
+  <li><strong>Word sense:</strong> <em>mother</em> can also mean a cask used in vinegar-making.</li>
+  <li><strong>Attachment:</strong> in "Copy the local patient files to disk", is it the patients or the files that are local?</li>
+</ul>
+<p><span class="src">slides 42–43</span></p>
+
+<h3>The data-driven turn and its limits</h3>
+<ul>
+  <li>"You shall know a word by the company it keeps" (Firth, 1957). Shannon "wasn't concerned with what a message means" but with how surprising it is: information depends on probability, not meaning. This is the bridge to R4 and to D2. <span class="src">slide 44</span></li>
+  <li>Limits: LMs trained only on form do not learn meaning or communicative intent (Bender &amp; Koller, 2020). BERT is insensitive to negation and to role-based event prediction (Ettinger, 2020). Data needs split languages into high- and low-resource. <span class="src">slide 45</span></li>
+</ul>
+<div class="note good"><strong>The one sentence to memorise:</strong> ELIZA matches patterns while SHRDLU represents, reasons and acts, so a fluent reply never proves understanding. NLU sits where NLP's engineering and CL's models meet.</div>
+</section>
+
+<!-- ============ R4 ============ -->
+<section id="r4">
+<div class="lec-head"><span class="lec-num">RANJAN · R4</span><h2>Zipf's law, Shannon's approximations, entropy</h2></div>
+<div class="lec-topics">normal vs Zipfian · f·r = const · least effort · efficiency vs robustness · monkey typing · nth-order approximation · redundancy · 2.3 bits</div>
+<div class="srcline">Fri 25 Sep · Tactiq live 1 h 35 m · no video in folder · slides InfoTheory 1–39 · Notion ✓</div>
+<label class="check"><input type="checkbox" data-rev="r4"> mark this lecture revised</label>
+
+<h3>The problem first</h3>
+<p>Many phenomena are normally distributed: few very low values, many average ones, few very high ones (three dice, life expectancy, heights). Word frequencies are not <span class="src">slide 5</span>. A few words (the, of, and, to) are extremely frequent, most are extremely rare, frequent words are short and rare words longer <span class="src">slide 8</span>. Can that regularity be measured?</p>
+
+<h3>Zipf's law</h3>
+<span class="formula">f(r) ∝ 1/r      ⇔      f · r = constant</span>
+<p>"The frequency is inversely proportional to rank. So the multiplication of frequency and rank is constant." The pattern holds across languages, like a universal law <span class="src">R4 00:09:54</span>. It even holds for letters if you sort them by frequency <span class="src">R4 00:35:13</span>.</p>
+<div class="note amber"><strong>Exam favourite (slide 11):</strong> "Should the 50th most common word occur with three times the frequency of the 150th?" <strong>Yes.</strong> f₅₀ / f₁₅₀ = 150 / 50 = 3. By the same rule, the most frequent word occurs twice as often as the second (slide 10).</div>
+
+<h3>Why are word frequencies Zipfian?</h3>
+<div class="cards">
+  <div class="card"><h4>Least effort (Zipf)</h4><p>If you use a word very often, it saves time and energy if that word is short.</p></div>
+  <div class="card"><h4>Efficiency</h4><p>Minimises the speaker's physical and cognitive effort. Short words convey their small amount of information cheaply.</p></div>
+  <div class="card"><h4>Robustness</h4><p>Ensures the listener can recover the meaning despite noise. Long words carry more information and survive mishearing, at a higher processing cost.</p></div>
+</div>
+<p>Language balances the two <span class="src">slide 13</span>. Knowing these regularities helps you design NLP systems whose output mimics human statistics.</p>
+<div class="note warn"><strong>The Zipf mystery (monkey typing):</strong> students who generated random text found Zipf-like curves too. A student put it as "distribution can emerge from random character generation… the number of possible words grows exponentially with word length". Prof. Ranjan's answer: human language is not random, since you can predict the next word from context, "but as you saw it can come out of random distribution as well, so more research is required". <span class="src">R4 00:14:27 – 00:18:29</span> Do not claim Zipf proves semantics.</div>
+
+<h3>Shannon's nth-order approximations</h3>
+<div class="tw"><table>
+<thead><tr><th>Order</th><th>What matches English</th><th>Sample on slide</th></tr></thead>
+<tbody>
+<tr><td class="k">Zero</td><td>Nothing: 27 symbols, uniform</td><td class="mono">XFOML RXKHRJFFJUJ ZLPWCFWKCYJ</td></tr>
+<tr><td class="k">First</td><td>Letter frequencies (more e and t, fewer z and j); word lengths look realistic</td><td class="mono">OCRO HLI RGWR NIMILWIS EU LL</td></tr>
+<tr><td class="k">Second</td><td>Bigram frequencies (after q, u is expected)</td><td class="mono">ON IE ANTSOUTINYS ARE T INCTORE</td></tr>
+<tr><td class="k">Third</td><td>Trigram frequencies</td><td class="mono">IN NO IST LAT WHEY CRATICT FROURE</td></tr>
+<tr><td class="k">1st word</td><td>Word frequencies</td><td class="mono">REPRESENTING AND SPEEDILY IS AN GOOD</td></tr>
+<tr><td class="k">2nd word</td><td>Word-pair frequencies: no "a in", no "to of"</td><td class="mono">THE HEAD AND IN FRONTAL ATTACK ON AN ENGLISH WRITER</td></tr>
+</tbody></table></div>
+<p>As the order rises, sequences "look" increasingly like English and entropy falls (slide 55). But "if you keep doing it, say 7-gram, 8-gram, then this approach fumbles", because long sequences are rarely seen <span class="src">R4 00:49:26</span>. This is the sparsity problem in R7.</p>
+
+<h3>Entropy</h3>
+<span class="formula">H(X) = − Σᵢ pᵢ log₂ pᵢ = E[ log 1/p(X) ]      (bits; Nyquist–Hartley 1928: H = n log s)</span>
+<p>Shannon's idea: "more choices meant more uncertainty, more information", so <strong>information is measured as uncertainty</strong> <span class="src">slide 32</span>. Entropy is the average logarithm of the improbability of the message, the expected surprise, and "the average length of the message needed to transmit an outcome efficiently" <span class="src">slides 33, 37</span>.</p>
+<div class="tw"><table>
+<thead><tr><th>Worked number</th><th>Working</th><th class="n">Result</th></tr></thead>
+<tbody>
+<tr><td class="k">8-sided die</td><td>−Σ ⅛ log₂ ⅛ = log₂ 8; encode 1–8 as 001 … 111, 000</td><td class="n">3 bits</td></tr>
+<tr><td class="k">Fair coin</td><td>0.5 log₂ 2 + 0.5 log₂ 2</td><td class="n">1 bit</td></tr>
+<tr><td class="k">26 letters</td><td>2⁴ = 16 is too few, 2⁵ = 32 is enough</td><td class="n">5 bits</td></tr>
+<tr><td class="k">English, 8+ letters</td><td>Shannon's estimate</td><td class="n">≈ 2.3 bits</td></tr>
+<tr><td class="k">Redundancy</td><td>1 − 2.3 / 5 = 0.54</td><td class="n">≈ 50%</td></tr>
+</tbody></table></div>
+<p>Evidence for the redundancy: after t-h-e-r-e-f-o-r- you fill in the e; "Ths sntnc s stll rdbl"; you spot a typo instantly because it violates the expected pattern <span class="src">slide 36 · R4 01:22:32</span>.</p>
+<div class="note"><strong>Activity (slide 34):</strong> reveal A · SMALL · OBLONG · READING · LAMP · ON · THE · D… and the choices for the next word shrink at every step. "Context reduces uncertainty: basic intuition behind language modeling!" The same slide introduces the noisy-channel duality: remove redundancy for efficiency, add redundancy for error correction.</div>
+<div class="note good"><strong>The one sentence to memorise:</strong> language is redundant because it is structured, and that redundancy, about 2.3 of 5 bits per letter, is exactly what makes the next symbol predictable and measurable.</div>
+</section>
+
+<!-- ============ R5 ============ -->
+<section id="r5">
+<div class="lec-head"><span class="lec-num">RANJAN · R5</span><h2>Joint and conditional entropy, the chain rule, MI and KL</h2></div>
+<div class="lec-topics">H(X,Y) · H(Y|X) · chain rule · I(X;Y) · Venn diagram · collocations · D(p‖q) · same event space</div>
+<div class="srcline">Sat 26 Sep · Tactiq live 1 h 27 m · no video in folder · slides InfoTheory 37–52 · Notion ✓</div>
+<label class="check"><input type="checkbox" data-rev="r5"> mark this lecture revised</label>
+
+<div class="note warn"><strong>Trap he corrected first:</strong> "Entropy, by default, does not truly represent randomness in the sequence. It's just talking about randomness of the event under study." The die and the coin are single events with no history. "Language depends on the history, so this notion of entropy will not be useful for language." You need conditional entropy. <span class="src">R5 00:14:32 – 00:16:56</span> When he asked the class what entropy says about a sequence, the answer he accepted was "it doesn't say anything about the sequences". <span class="src">R5 01:11:50</span></div>
+
+<h3>Joint entropy</h3>
+<span class="formula">H(X,Y) = − Σₓ Σᵧ p(x,y) log p(x,y)</span>
+<p>The information needed on average to specify both values <span class="src">slide 40</span>.</p>
+
+<h3>Conditional entropy: the derivation he said to know</h3>
+<p>H(Y|X) is how much extra information you still need, on average, to communicate Y when you already know X <span class="src">slide 41</span>. "This is the derivation that I want you guys to really understand." <span class="src">R5 00:28:12</span></p>
+<span class="formula">H(Y|X) = Σₓ p(x) · H(Y | X = x)                      average over contexts
+       = Σₓ p(x) · [ − Σᵧ p(y|x) log p(y|x) ]          expand each H(Y|X=x)
+       = − Σₓ,ᵧ p(x) p(y|x) log p(y|x)                 take the minus out
+       = − Σₓ,ᵧ p(x,y) log p(y|x)                       since p(x)p(y|x) = p(x,y)</span>
+<p>The slide's umbrella example: X = weather ∈ {Sunny, Rainy}, Y = whether I carry an umbrella. Without the weather you face H(Y). Told "it's raining", you switch from p(y) to p(y|x). So H(Y|X) = p(x₁) H(Y|X=x₁) + p(x₂) H(Y|X=x₂) <span class="src">slides 42–43</span>. "Language modeling is fundamentally about conditional probability and therefore conditional uncertainty" <span class="src">slide 41</span>.</p>
+
+<h3>The chain rule</h3>
+<span class="formula">H(X,Y) = −E[log p(x,y)] = −E[log p(x) p(y|x)] = −E[log p(x)] − E[log p(y|x)] = H(X) + H(Y|X)
+H(X₁,…,Xₙ) = H(X₁) + H(X₂|X₁) + … + H(Xₙ|X₁,…,Xₙ₋₁)</span>
+<p>"Multiplication gets converted into summation… then you just separate the expectations." <span class="src">R5 00:34:44</span> The information to specify X and Y is the information to specify X, plus what you still need for Y once X is known.</p>
+<div class="note jj"><strong>Student question, his answer:</strong> Abhishek Kumar asked why total joint uncertainty doesn't depend on which variable you describe first. Answer: think of the joint as a "mental bag" in which order does not exist. "It's you who brings the order", because you can say only one thing at a time. Whichever you say first, the joint is the same. <span class="src">R5 01:21:54 – 01:25:17</span></div>
+
+<h3>Mutual information and why it is symmetric</h3>
+<span class="formula">I(X;Y) = H(X) − H(X|Y) = H(Y) − H(Y|X) = H(X) + H(Y) − H(X,Y)
+I(X;Y) = Σₓ,ᵧ p(x,y) log [ p(x,y) / (p(x) p(y)) ]</span>
+<p>MI is "the reduction of uncertainty of one RV due to knowing about the other"; in the Venn diagram it is "literally the part of uncertainty that the two variables share" <span class="src">slides 45–47</span>.</p>
+<div class="note amber"><strong>Exam favourite, asked directly (slide 51 Q2):</strong> write I(X;Y) in terms of p(x), p(y) and prove I(X;Y) = I(Y;X). <span class="src">R5 01:11:52</span><br>
+<strong>Proof 1:</strong> in the sum form, swapping the roles of X and Y leaves p(x,y) unchanged (same joint table) and leaves the product p(x)p(y) unchanged, so every term is the same.<br>
+<strong>Proof 2:</strong> by the chain rule, H(X) − H(X|Y) = H(X) − [H(X,Y) − H(Y)] = H(X) + H(Y) − H(X,Y), which is symmetric in X and Y.<br>
+<strong>Corollary:</strong> if X and Y are independent, p(x,y) = p(x)p(y), so every log is log 1 = 0 and I = 0.<br>
+He also said to practise by hand: "your mind will say that you know, but when you actually use your hand you will see the real challenge." <span class="src">R5 01:13:23</span></div>
+<p>Examples on the slides:</p>
+<ul>
+  <li>Studying and passing: if they are unrelated, I ≈ 0; if almost every pass studied, I &gt; 0.</li>
+  <li>"New Delhi": P(Delhi | New) &gt; P(Delhi), so the two words share information. That is how MI finds <strong>collocations</strong> <span class="src">slides 48–49 · R5 01:04:03</span>.</li>
+</ul>
+
+<h3>Relative entropy (KL divergence)</h3>
+<span class="formula">D(p ‖ q) = Σₓ p(x) log [ p(x) / q(x) ] = E_p [ log p(X)/q(X) ]</span>
+<p>Two conditions from the slide and class:</p>
+<ul>
+  <li>The two distributions must be <strong>over the same event space</strong>, "else it will be apples and oranges". <span class="src">slide 50 · R5 01:06:37</span></li>
+  <li>The meaning: "the average number of bits that are wasted by encoding events from a distribution p with a code based on a not-quite-right distribution q".</li>
+</ul>
+<p>His example: a distribution fitted on one population (he said "Neon", unclear in the transcript) may not fit India, and using it costs extra bits <span class="src">R5 01:07:49</span>.</p>
+<div class="note good"><strong>The one sentence to memorise:</strong> conditional entropy is the average leftover uncertainty after seeing the context. The chain rule adds it to H(X), MI is what the context removed (and it is symmetric), and KL is the price of coding with the wrong distribution.</div>
+</section>
+
+<!-- ============ R6 ============ -->
+<section id="r6">
+<div class="lec-head"><span class="lec-num">RANJAN · R6</span><h2>Entropy on language, perplexity, n-grams, Markov chains</h2></div>
+<div class="lec-topics">LM = distribution over language · pointwise conditional entropy · total surprisal · Ĥ = H_total/N · PP = 2^Ĥ · Markov assumption · unigram/bigram/trigram · weighted FSA</div>
+<div class="srcline">Sat 3 Oct · Tactiq live 1 h 56 m · video Lec6 (likely) · slides InfoTheory 53–63 · Notion ✓</div>
+<label class="check"><input type="checkbox" data-rev="r6"> mark this lecture revised</label>
+
+<h3>From entropy to a language model</h3>
+<p>"A language model is nothing but a probability distribution over language." Training assumes your corpus is representative of English, "good enough", and estimates probabilities from it <span class="src">R6 00:33:50</span>. His running example: in "peanut butter and ___", the next word Y is <em>jelly</em> or <em>bread</em> and the history X is "peanut butter and" <span class="src">R6 00:27:06</span>.</p>
+<span class="formula">Pointwise conditional entropy (surprisal):  H(w|h) = − log₂ m(w | h)
+Total surprisal:  H_total = − Σⱼ log₂ m(wⱼ | w₁…wⱼ₋₁) = − log₂ m(w₁,…,wₙ)      (chain rule)
+Average:          Ĥ = H_total / N
+Perplexity:       PP(w) = 2^Ĥ = m(w₁,…,wₙ)^(−1/N) = ᴺ√( 1 / m(w₁,…,wₙ) )</span>
+<p>Here m is the language model, w the next word and h the history so far <span class="src">slides 53–54</span>. Log base 2 gives bits <span class="src">R6 00:35:33</span>.</p>
+<div class="note"><strong>His definition of perplexity:</strong> "the number of possible next words that can follow any word". "Lower the perplexity, the better the language model, and in a way the model is making confident predictions." <span class="src">R6 00:43:14 – 00:46:07</span></div>
+<div class="note warn"><strong>Trap:</strong> entropy and perplexity are related (PP = 2^H) but "capturing different essence". Entropy is the expected surprise, the minimum bits to transmit. Perplexity is "the number of options that you may have per word". <span class="src">R6 00:47:20 – 00:47:55</span></div>
+
+<h3>Predicting sequences</h3>
+<p>"He put the coffee …": an LM assigns a probability to each possible next word. "I will be back soonish" is likelier than "I will be bassoon dish", which matters in speech recognition <span class="src">slide 56</span>.</p>
+<span class="formula">Markov assumption:  P(wₙ | w₁…wₙ₋₁) ≈ P(wₙ | wₙ₋ₖ…wₙ₋₁)      (recent, finite history)
+Unigram:  P(S) = P(He) P(put) P(the) P(coffee) P(on) P(the) P(table)
+Bigram:   P(S) = P(put|He) P(the|put) P(coffee|the) P(on|coffee) P(the|on) P(table|the)
+          P(wₙ | wₙ₋₁) = C(wₙ₋₁ wₙ) / C(wₙ₋₁)
+Trigram:  P(coffee | put the) = C(put the coffee) / C(put the)       ← "grep the corpus"</span>
+<p>The bigram estimate counts the pair and normalises "by the sum of all bigrams that share the same first word", which equals the unigram count of wₙ₋₁ <span class="src">slide 59 · R6 01:12:44</span>. An n-gram model is a Markov model, or Markov chain.</p>
+
+<h3>Markov chain = weighted finite-state machine</h3>
+<div class="tw"><table>
+<thead><tr><th>From \ to</th><th>He</th><th>cool</th><th>is</th></tr></thead>
+<tbody>
+<tr><td class="k">He</td><td class="n">.1</td><td class="n">.3</td><td class="n">.6</td></tr>
+<tr><td class="k">cool</td><td class="n">.2</td><td class="n">—</td><td class="n">.8</td></tr>
+<tr><td class="k">is</td><td class="n">.5</td><td class="n">.5 (read from figure)</td><td class="n">—</td></tr>
+</tbody></table></div>
+<p>The start distribution is π = [0.7, 0.1, 0.2] over He, cool, is. The slide works one example: P(is he cool) = 0.2 × 0.5 × 0.3 = <strong>0.03</strong> <span class="src">slide 61</span>. In class he asked for the probability of "he is" and accepted <strong>0.6</strong>, reading the transition only. <span class="src">R6 01:22:12</span> With the start probability included it would be 0.7 × 0.6 = 0.42, so state which one you mean.</p>
+<div class="note warn"><strong>Disputed in class:</strong> a student (Ausaf Ahmad) objected that the self-loop on <em>He</em> made the FSA "incorrect" by compiler conventions. Prof. Ranjan said a self-loop is allowed, because "you can have a language where it's repeating", as in "he, he is my brother", and took the rest offline. <span class="src">R6 01:24:25 – 01:25:47</span> For the exam, a weighted FSA may have self-loops.</div>
+<h3>Takeaways he wrote</h3>
+<ul>
+  <li>Language is highly structured, hence highly predictable; probability quantifies that predictability.</li>
+  <li>You represent linguistic structure probabilistically, as probabilities of words and sequences given context, or as a weighted finite-state machine (a graph). <span class="src">slide 62</span></li>
+</ul>
+<div class="note good"><strong>The one sentence to memorise:</strong> a language model scores a sentence by the chain rule, an n-gram truncates the history (the Markov assumption), and perplexity 2^Ĥ is how many words the model is still choosing between.</div>
+</section>
+
+<!-- ============ R7 ============ -->
+<section id="r7">
+<div class="lec-head"><span class="lec-num">RANJAN · R7</span><h2>The Sam corpus, evaluation, zeros, smoothing, backoff and SRILM</h2></div>
+<div class="lec-topics">&lt;s&gt; &lt;/s&gt; · 17 / 22 / 27 · likelihood · log-likelihood · ppl vs ppl1 · comparable vocabularies · OOV / UNK · Laplace · Katz backoff · interpolation · λ on dev · SRILM</div>
+<div class="srcline">Mon 5 Oct · Tactiq live 1 h 22 m · video Lec7 (likely) · slides InfoTheory 63–86 · lab SRILM · official solution doc · Notion ✓</div>
+<label class="check"><input type="checkbox" data-rev="r7"> mark this lecture revised</label>
+
+<h3>The training data</h3>
+<span class="formula">&lt;s&gt; I am Sam &lt;/s&gt;
+&lt;s&gt; Sam I am &lt;/s&gt;
+&lt;s&gt; Sam I like &lt;/s&gt;
+&lt;s&gt; Sam I do like &lt;/s&gt;
+&lt;s&gt; do I like Sam &lt;/s&gt;</span>
+<div class="note warn"><strong>Correction he made in class, the counting convention:</strong> 17 word tokens and 5 sentences. Count the end tag only: 17 + 5 = <strong>22</strong>. A student offered 27 (counting &lt;s&gt; too). His reply: "You have to just compute the counts of end tag… if you have end, you know that there is start tag; you don't want it, because it's redundant." <span class="src">R7 00:01:19 – 00:04:21</span> SRILM does the same: P(&lt;s&gt;) = 10⁻⁹⁹ in the .lm file.</div>
+<div class="tw"><table>
+<thead><tr><th>Token</th><th class="n">Count</th><th class="n">Unigram (÷22)</th><th>Followed by (bigram counts)</th></tr></thead>
+<tbody>
+<tr><td class="k">&lt;s&gt;</td><td class="n">5</td><td class="n">—</td><td>Sam 3 · I 1 · do 1</td></tr>
+<tr><td class="k">I</td><td class="n">5</td><td class="n">0.227</td><td>am 2 · like 2 · do 1</td></tr>
+<tr><td class="k">Sam</td><td class="n">5</td><td class="n">0.227</td><td>I 3 · &lt;/s&gt; 2</td></tr>
+<tr><td class="k">like</td><td class="n">3</td><td class="n">0.136</td><td>&lt;/s&gt; 2 · Sam 1</td></tr>
+<tr><td class="k">am</td><td class="n">2</td><td class="n">0.091</td><td>Sam 1 · &lt;/s&gt; 1</td></tr>
+<tr><td class="k">do</td><td class="n">2</td><td class="n">0.091</td><td>like 1 · I 1</td></tr>
+<tr><td class="k">&lt;/s&gt;</td><td class="n">5</td><td class="n">0.227</td><td>—</td></tr>
+</tbody></table></div>
+<p>The full working is in <a href="#cases">worked cases 3–5</a>. Under both the bigram and the unigram model, "Sam I am" beats "Sam I do I like".</p>
+
+<h3>How you evaluate</h3>
+<div class="cards">
+  <div class="card"><h4>Extrinsic</h4><p>Performance on an application task.</p></div>
+  <div class="card"><h4>Intrinsic</h4><p>Quality independent of any application: perplexity.</p></div>
+  <div class="card"><h4>Likelihood</h4><p>P(W_test | M) = Π P(w | M). Uses very small numbers and underflows.</p></div>
+  <div class="card"><h4>Log-likelihood</h4><p>Σ log P(w | M). Taking the log resolves the underflow.</p></div>
+</div>
+<span class="formula">PP(w) = 2^Ĥ = m(w₁,…,wₙ)^(−1/N),     N = total word tokens in the test set + total number of sentences (&lt;/s&gt;)</span>
+<p>Two rules from the slide:</p>
+<ul>
+  <li>The higher the estimated probability of the word sequence, the lower the perplexity.</li>
+  <li>The model must have no knowledge of the test set. <span class="src">slide 68</span></li>
+</ul>
+<p>The slide's WSJ table: unigram 962, bigram 170, trigram 109, so more context gives lower perplexity.</p>
+<div class="note amber"><strong>Exam favourite, asked directly:</strong> "The perplexity of two language models is only comparable if they use identical vocabularies… You cannot compare apples and oranges… These are very important points that I may ask you in the exam." <span class="src">R7 00:42:29 – 00:43:08</span> Also: "Don't train your language model on the test corpus." <span class="src">R7 00:34:38</span></div>
+
+<h3>The problem of zeros, and the fixes</h3>
+<p>N-gram models perform well only when the test corpus resembles the training corpus; "in real life, that's not the case" <span class="src">slide 69</span>. The Berkeley Restaurant bigram table (9,222 sentences) is mostly zeros, so "steal probability mass to generalize better" <span class="src">slide 70</span>.</p>
+<div class="chain fix">
+  <div class="step"><b>UNK</b><span>Map out-of-vocabulary words to a token with smoothed probability</span></div>
+  <div class="step"><b>Smoothing</b><span>Add-1 (Laplace), absolute discounting, Good-Turing, Witten-Bell, Kneser-Ney</span></div>
+  <div class="step"><b>Backoff</b><span>Katz 1987: no trigram? Use the bigram; none? Use the unigram. Non-linear</span></div>
+  <div class="step"><b>Interpolation</b><span>λ₁P₁ + λ₂P₂ + λ₃P₃ with Σλ = 1; a weighted average that is itself a probability</span></div>
+</div>
+<span class="formula">Add-1:  P(wᵢ | h) = (C(h, wᵢ) + 1) / (C(h) + |V|)          Unigram: (c + 1) / (N + |V|)</span>
+<div class="note warn"><strong>Trap he raised himself, unseen ≠ sparse:</strong> "Unseen data doesn't necessarily mean sparse, because that would also signal that it's nonsense or implausible… If I say this ungrammatical sentence 'I eat it's', the probability will be 0, but you will back off to unigram and you will get some value. Is it acceptable? No." The slide calls this the "grammatical null": a frequent bigram with a rare trigram may reflect a real drop, not chance. "One may not want to back off." <span class="src">R7 00:50:59 · slide 74</span></div>
+<p><strong>Best in practice:</strong> simple linear interpolation plus smoothed probability for OOV. Pick λ by trying values on a dev set (about 10–20% held out), then report the final model on test <span class="src">slides 76–77 · R7 00:51:48</span>. "We are making things more complex. Why? Because nature is very complex."</p>
+
+<h3>SRILM, the toolkit</h3>
+<p>SRILM is C++ libraries plus executables for building and applying statistical LMs, for speech recognition, tagging, segmentation and MT <span class="src">slide 78</span>. Default smoothing is Good-Turing; <code>-addsmooth</code> gives Laplace <span class="src">R7 00:56:05</span>. He ran the toy data live and matched the values: "0.6… 0.4… 0.667 here also. Is this clear? Exact matches with what you manually compute. Imagine doing this for millions of sentences." <span class="src">R7 01:05:29</span> The commands are in <a href="#labs">the labs section</a>.</p>
+<div class="note good"><strong>The one sentence to memorise:</strong> score the test set by log-probability and perplexity on the same vocabulary, count &lt;/s&gt; but not &lt;s&gt;, smooth so OOV words don't zero the product, and interpolate rather than blindly back off, because an unseen n-gram may be ungrammatical rather than rare.</div>
+</section>
+
+<!-- ============ R8 ============ -->
+<section id="r8">
+<div class="lec-head"><span class="lec-num">RANJAN · R8</span><h2>POS tagging with HMMs, Viterbi, chunking, constituency and dependency</h2></div>
+<div class="lec-topics">tagging ambiguity · supervised (w, t) · generative vs discriminative · FSA 5-tuple · Moore machine · π, a, b · qᵀ · Viterbi · IOB · constituents · dependency arcs · attachment ambiguity</div>
+<div class="srcline">Fri 9 Oct · Tactiq live 1 h 9 m (his last class) · video Lec8 (likely) · slides POS deck 1–44 · lab POS · Notion ✓</div>
+<label class="check"><input type="checkbox" data-rev="r8"> mark this lecture revised</label>
+
+<h3>The problem first</h3>
+<p>POS tagging assigns a grammatical category to each word. The same word changes tag with use: "I read a <em>book</em>" (noun) vs "Please <em>book</em> a ticket" (verb). The headline "British Left Waffles on Falkland Islands" reads two ways, N N V P N N vs N V N P N N. Data comes as (w, t) pairs: train on words with correct tags, and at test time the tags are <strong>hidden</strong> <span class="src">slides 4–6</span>.</p>
+
+<h3>Types of tagger</h3>
+<div class="tw"><table>
+<thead><tr><th>Family</th><th>Examples</th><th>What it does</th></tr></thead>
+<tbody>
+<tr><td class="k">Rule / lookup</td><td>Regex tagger, default tagger, n-gram taggers</td><td>Patterns or most-frequent tag</td></tr>
+<tr><td class="k">Generative</td><td>HMM</td><td>Models P(W, T): how words and tags are jointly generated; a noun likely emits <em>student, dog, book</em></td></tr>
+<tr><td class="k">Discriminative</td><td>Maximum-entropy, perceptron</td><td>Models P(T | W) directly; learns <em>reads</em> is a verb in "The student reads books"</td></tr>
+<tr><td class="k">Neural</td><td>BiLSTM, BERT, spaCy, Stanza</td><td>Contextual representations</td></tr>
+</tbody></table></div>
+<p>"The accuracy continuously improves from lookup tagger to statistical tagger to neural tagger. If the accuracy is increasing, that means ambiguity cases are being resolved." A discriminative perceptron "may work better for ambiguity cases" than an HMM <span class="src">R8 01:03:41 – 01:04:48</span>. The perceptron is error-driven and scores the whole sentence's tag sequence, not one word at a time <span class="src">slide 31</span>.</p>
+
+<h3>From FSA to HMM</h3>
+<p>An FSA is the 5-tuple A = ⟨Q, Σ, q₀, δ, F⟩. The slide's example uses Q = {q0, q1, q2, q3}, Σ = {c, a, t, r}, F = {q3} and δ = {⟨q0,c,q1⟩, ⟨q1,a,q2⟩, ⟨q2,t,q3⟩, ⟨q2,r,q3⟩}, so it accepts <em>cat</em> and <em>car</em>. The sheep language accepts <em>baaa</em>, rejects <em>bb</em> (q1 is not final) and fails on <em>bac</em> (no transition defined) <span class="src">slides 11–15</span>. One machine type puts outputs on edges, another on states; they are equivalent, and an HMM is the probabilistic version of the state-output kind, the <strong>Moore machine</strong> <span class="src">slides 21–22</span>.</p>
+<div class="cards">
+  <div class="card"><h4>Start π</h4><p>Probability of beginning in tag i.</p></div>
+  <div class="card"><h4>Transition a</h4><p>P(j | i), e.g. P(N | N). All outgoing arcs from a state sum to 1.</p></div>
+  <div class="card"><h4>Emission b</h4><p>P(o | i), e.g. P(British | N). All emissions from a state sum to 1.</p></div>
+</div>
+<span class="formula">n-gram:  P(British) · P(Left | British) · P(Waffles | Left) · …
+HMM:     P(N) P(British|N) · P(N|N) P(Left|N) · P(V|N) P(Waffles|V) · P(P|V) P(on|P) · P(N|P) P(Falkland|N) · P(N|N) P(Islands|N)
+Task:    find argmax over tag sequences of  π(t₁) b_t₁(w₁) Πₜ a(tₜ₋₁ → tₜ) b_tₜ(wₜ)</span>
+<p class="src">slide 20</p>
+
+<h3>The killer-clown example</h3>
+<p>The slides use two parameter sets; know which you are given. The set worked through on slides 27–29:</p>
+<div class="tw"><table>
+<thead><tr><th>Table</th><th>A (adjective)</th><th>N (noun)</th></tr></thead>
+<tbody>
+<tr><td class="k">π (start)</td><td class="n">0.25</td><td class="n">0.75</td></tr>
+<tr><td class="k">a(→A) / a(→N) from A</td><td class="n">0.0 / 1.0</td><td>—</td></tr>
+<tr><td class="k">a(→A) / a(→N) from N</td><td>—</td><td class="n">0.5 / 0.5</td></tr>
+<tr><td class="k">b: clown, killer, problem, crazy</td><td class="n">0, 0, 0, 1</td><td class="n">0.4, 0.3, 0.3, 0</td></tr>
+</tbody></table></div>
+<span class="formula">P(killer clown, AA) = π_A · b_A(killer) · a_AA · b_A(clown) = 0.25 · 0 · 0 · 0 = 0
+P(killer clown, AN) = π_A · b_A(killer) · …                        = 0
+P(killer clown, NA) = π_N · b_N(killer) · a_NA · b_A(clown) = …· 0  = 0
+P(killer clown, NN) = π_N · b_N(killer) · a_NN · b_N(clown) = 0.75 · 0.3 · 0.5 · 0.4 = 0.045   ← best</span>
+<div class="note warn"><strong>Slide typo to know about:</strong> slide 28 prints "0.25 × 0.3 × 0.5 × 0.4 = 0.045". The 0.25 should be π_N = 0.75, as slide 29 shows; 0.25 × 0.3 × 0.5 × 0.4 would be 0.015. In class he described the four combinations and noted AA is impossible because P(killer|A) = 0. <span class="src">R8 00:17:31</span> The other parameter set (slides 23–24) has π = ½, ½, a_AA = ⅓, a_AN = ⅔, a_NA = 1/10, a_NN = 9/10, b_A(crazy) = 1, and b_N = ⅓ each for killer, clown, problem. Under it, NN = ½ · ⅓ · 9/10 · ⅓ = 0.05.</div>
+<div class="note amber"><strong>Exam favourite, asked directly:</strong> "If I give you a word sequence, the emission table, the transition table and the start table, can you compute a most likely tag sequence? Very easy. Can you do it?" <span class="src">R8 00:26:14</span> <a href="#cases">Worked case 8</a> traces Viterbi on "killer crazy clown".</div>
+
+<h3>Why brute force fails, and Viterbi</h3>
+<p>With q states and input length T there are qᵀ sequences. Two words with two states gives 2² = 4 <span class="src">R8 00:22:14</span>. Brute force is exponential. Viterbi uses dynamic programming. "If you have reached here, there will be a best path you have figured out until here… use the best path you figured out before, you don't have to go from scratch… it prunes your search space drastically." <span class="src">R8 00:24:09</span></p>
+<span class="formula">δ₁(j) = π_j · b_j(w₁)
+δₜ(j) = maxᵢ [ δₜ₋₁(i) · a_ij ] · b_j(wₜ)        ψₜ(j) = argmaxᵢ [ δₜ₋₁(i) · a_ij ]
+cost: O(T · q²)   vs   brute force O(qᵀ)</span>
+
+<h3>Sequence labelling beyond POS: chunking and NER with IOB</h3>
+<div class="tw"><table>
+<thead><tr><th>Token</th><th>POS</th><th>Chunk</th><th></th><th>Token</th><th>NER</th></tr></thead>
+<tbody>
+<tr><td>We</td><td>PRP</td><td>B-NP</td><td></td><td>United</td><td>B-ORG</td></tr>
+<tr><td>saw</td><td>VBD</td><td>B-VP</td><td></td><td>cancelled</td><td>O</td></tr>
+<tr><td>the</td><td>DT</td><td>B-NP</td><td></td><td>the flight from</td><td>O O O</td></tr>
+<tr><td>yellow</td><td>JJ</td><td>I-NP</td><td></td><td>San</td><td>B-LOC</td></tr>
+<tr><td>dog</td><td>NN</td><td>I-NP</td><td></td><td>Francisco</td><td>I-LOC</td></tr>
+</tbody></table></div>
+<p>Chunking selects a subset of tokens. Chunkers range from regex patterns to n-gram tag-pattern chunkers to classifiers that use both tags and words <span class="src">slides 32–34</span>.</p>
+
+<h3>Two ways to draw structure</h3>
+<div class="tw"><table>
+<thead><tr><th></th><th>Constituency (phrase structure)</th><th>Dependency</th></tr></thead>
+<tbody>
+<tr><td class="k">Unit</td><td>Nested constituents: NP, VP, PP as non-terminal nodes</td><td>Binary head → dependent relations between words</td></tr>
+<tr><td class="k">Evidence</td><td>A constituent moves as a unit: "John talked [to the children] [about drugs]" ↔ swapped; *"John talked drugs to the children about"</td><td>Directed, acyclic arcs <span class="src">R8 00:45:19</span></td></tr>
+<tr><td class="k">Labels</td><td>Structural categories plus grammatical functions</td><td>Argument (subj, obj, iobj) and modifier (det, nmod, vmod)</td></tr>
+<tr><td class="k">Notation</td><td>(S (NP (N Fed)) (VP (V raises) (NP (N interest) (N rates))))</td><td>ROOT → put; put → boy, tortoise, on; on → rug</td></tr>
+<tr><td class="k">Treebank</td><td>Penn Treebank</td><td>Universal Dependencies</td></tr>
+</tbody></table></div>
+<div class="note"><strong>How he resolves attachment ambiguity:</strong> in "One morning I shot an elephant in my pajamas" (Groucho Marx: "How he got into my pajamas, I'll never know"), the PP attaches either to <em>shot</em> or to <em>elephant</em>. "The answer is probability": score each structure's rules and take the higher. <span class="src">R8 00:48:53 – 00:50:12</span></div>
+<p>His sign-off: "The class is dismissed and my portion of this course is also over. So, see you directly in the exam." <span class="src">R8 01:08:50</span></p>
+<div class="note good"><strong>The one sentence to memorise:</strong> an HMM scores a tag path as start × emissions × transitions with every row summing to 1, and Viterbi finds the best of the qᵀ paths in O(T·q²) by extending only the best partial path into each state.</div>
+</section>
+
+<!-- ============ D1 ============ -->
+<section id="d1">
+<div class="lec-head"><span class="lec-num d">VARSHNEY · D1</span><h2>From a straight line to word vectors</h2></div>
+<div class="lec-topics">y = wx + b · ŷ vs y · loss · slope as direction · learning rate · partial derivatives · sigmoid · nonlinearity · vocabulary · one-hot · lookup · matrix shapes</div>
+<div class="srcline">Sat 10 Oct · Tactiq live 1 h 27 m · video 2026-10-10 (over the upload limit, not viewed) · no slides in folder · Notion ✓</div>
+<label class="check"><input type="checkbox" data-rev="d1"> mark this lecture revised</label>
+
+<h3>Learning a line</h3>
+<p>Start with y = wx + b. Here w tilts the line and b shifts it. Training compares the prediction ŷ with the target y through a loss and moves the parameters to reduce it.</p>
+<div class="note"><strong>Her rule for the update direction:</strong> "If slope is greater than 0, we want to decrease. If slope is less than 0, we want to increase. Slope is equal to 0 at the minimum. Slope basically tells us which direction to move and how aggressively to go." <span class="src">D1 00:18:56</span></div>
+<span class="formula">θ := θ − α · ∂L/∂θ        (for several parameters, take partial derivatives one at a time)</span>
+<div class="note jj"><strong>Student question:</strong> Aamir Kathat asked whether a zero slope could also be a maximum. Her answer: yes, if you are maximising the cost function; for this curve it is the minimum. <span class="src">D1 00:20:52</span></div>
+<div class="cards">
+  <div class="card"><h4>Learning rate too large</h4><p>"It will overshoot… it is going to move away from the curve itself." It does not converge.</p></div>
+  <div class="card"><h4>Learning rate too small</h4><p>"It is slowly converging towards the minima": very slow learning. <span class="src">D1 00:21:35</span></p></div>
+</div>
+
+<h3>Why nonlinearity</h3>
+<p>Sigmoid is a nonlinearity "because it was converting the values from minus infinity to infinity to a certain threshold between 0 and 1" <span class="src">D1 00:32:22</span>. Without one, "it would have been a straight line, y = mx + c". With it, the curve bends to the data: underfit, a good fit, or overfit <span class="src">D1 00:33:48</span>.</p>
+
+<h3>Text must become numbers</h3>
+<div class="chain nn">
+  <div class="step"><b>Sentences</b><span>"I like CS", …</span></div>
+  <div class="step"><b>Tokens</b><span>Split into words</span></div>
+  <div class="step"><b>Vocabulary</b><span>"List of all the unique words" in the data</span></div>
+  <div class="step"><b>Vectors</b><span>"Famously, word representations": one-hot first</span></div>
+  <div class="step"><b>Network</b><span>H = lookup(X); S = H · W</span></div>
+</div>
+<p>"A neural network is nothing but a group of equations, and equations can take only numbers." <span class="src">D1 00:56:18</span> In her one-hot for "I like CS", the positions for I, like and CS are 1 and the rest 0, a vector as long as the vocabulary <span class="src">D1 00:58:25</span>. Strictly, that is a multi-hot sentence vector; a single word's one-hot has exactly one 1.</p>
+<p>Shapes, from her demo: three sentences give a lookup H of 3 × |V|. The weight matrix's second dimension equals the number of output neurons, e.g. 5 × 2 for two outputs. "That is what a neural network is: the multiplication with your weight matrices." <span class="src">D1 01:06:40 – 01:13:28</span></p>
+<div class="note good"><strong>The one sentence to memorise:</strong> a network is matrix multiplication plus a nonlinearity, trained by stepping against the slope at a learning rate. Text enters only after tokens become vectors over a fixed vocabulary.</div>
+</section>
+
+<!-- ============ D2 ============ -->
+<section id="d2">
+<div class="lec-head"><span class="lec-num d">VARSHNEY · D2</span><h2>word2vec skip-gram</h2></div>
+<div class="lec-topics">distributional meaning · window m · center v_c · context u_o · likelihood → log-likelihood · dot product · softmax · skip-gram vs CBOW · word_to_id · training pairs</div>
+<div class="srcline">Fri 16 Oct · Tactiq live 1 h 14 m · video 2026-10-16 (over the upload limit, not viewed) · Notion ✓</div>
+<label class="check"><input type="checkbox" data-rev="d2"> mark this lecture revised</label>
+
+<h3>The problem it solves</h3>
+<p>One-hot vectors identify a word but say nothing about similarity. word2vec (Mikolov et al.) learns dense vectors so that words in similar contexts sit near each other, and vector arithmetic becomes meaningful. Asked whether king − male + woman equals queen, she answered: "I cannot say right now… but yes, they are very close to each other. They will represent same meaning." <span class="src">D2 00:02:12</span></p>
+
+<h3>The setup</h3>
+<p>Slide a context window over the text. With window 2, for each center word take the two words before and the two after <span class="src">D2 00:05:54</span>. "The algorithm is that you have to take every word as the center word. Everyone will be taken once as a center word." <span class="src">D2 00:25:30</span></p>
+<div class="note"><strong>Two vectors per word, two roles:</strong> "We will use two vectors per word: v_w when w is a center word and u_w when w is a context word. We are not saying that the same word has two meanings. We are just saying that there are two roles." <span class="src">D2 00:10:44</span></div>
+<span class="formula">P(o | c) = exp(u_oᵀ v_c) / Σ_{w ∈ V} exp(u_wᵀ v_c)
+L(θ) = Πₜ Π_{−m ≤ j ≤ m, j ≠ 0} P(w_{t+j} | w_t ; θ)      →      J(θ) = −(1/T) Σₜ Σⱼ log P(w_{t+j} | w_t)</span>
+<p>Why the log: "this product is actually not a very good idea when we have a lot of window size… the objective function can be converted into summation by taking log" <span class="src">D2 00:09:15</span>. The numerator is the dot-product similarity of center and context; the denominator normalises over the whole vocabulary, "and this normalization formula is also the softmax" <span class="src">D2 00:13:43</span>.</p>
+<div class="note amber"><strong>Exam favourite, her "very famous question":</strong> when do you apply sigmoid and when softmax? Sigmoid for binary classification. Softmax when you want a probability over all vocabulary words, as in next-token or context prediction: "it will make the probability from 0 to 1". <span class="src">D2 00:13:43</span></div>
+
+<h3>Skip-gram vs CBOW, and vs an n-gram LM</h3>
+<div class="tw"><table>
+<thead><tr><th></th><th>Skip-gram</th><th>CBOW</th><th>n-gram LM</th></tr></thead>
+<tbody>
+<tr><td class="k">Input → output</td><td>Center word → each context word</td><td>Context words → center word</td><td>Previous n−1 words → next word</td></tr>
+<tr><td class="k">Context side</td><td>Both sides of the center</td><td>Both sides</td><td>Only before ("no role of words which are coming after") <span class="src">D2 00:23:13</span></td></tr>
+<tr><td class="k">Mechanism</td><td colspan="2">A one-hot center vector selects one column of the embedding matrix, then dot products and softmax <span class="src">D2 00:21:08</span></td><td>Counts</td></tr>
+</tbody></table></div>
+<p>A student asked whether the dot-product scoring was attention. Her answer: "It's not particularly attention… here we are not calculating any kind of attention score." <span class="src">D2 00:24:08</span></p>
+
+<h3>Implementation order she required</h3>
+<ol class="tight">
+  <li>Corpus → vocabulary of unique words → <code>word_to_id</code> and <code>id_to_word</code> dictionaries <span class="src">D2 00:45:15</span></li>
+  <li>Initialise the two weight matrices (|V| × d)</li>
+  <li>Create training pairs from the window, e.g. (1, 5), (5, 1), (5, 6), and print them <span class="src">D2 00:53:47</span></li>
+  <li>Look up v_c, take dot products with every u, apply softmax, compare with the one-hot target by cross-entropy, backpropagate <span class="src">D2 01:11:11</span></li>
+</ol>
+<p>She explicitly allowed AI help: "I want you to use AI, but compile the code fully such that you have the skip-gram code." <span class="src">D2 00:36:49</span></p>
+<div class="note good"><strong>The one sentence to memorise:</strong> skip-gram makes each center word predict its neighbours through a dot-product softmax over the whole vocabulary, so words with similar contexts end up with similar vectors.</div>
+</section>
+
+<!-- ============ D3 ============ -->
+<section id="d3">
+<div class="lec-head"><span class="lec-num d">VARSHNEY · D3</span><h2>Negative sampling, co-occurrence matrices, GloVe</h2></div>
+<div class="lec-topics">softmax bottleneck · true vs noise pairs · σ · k negatives · U(w)^¾ · window co-occurrence · sparsity · ice/steam ratios · log X_ij · f(X_ij) · (w + w̃)/2</div>
+<div class="srcline">Sat 17 Oct · Tactiq live 1 h 23 m · <strong>video viewed</strong>: slides 23–40 read on screen · Notion ✓</div>
+<label class="check"><input type="checkbox" data-rev="d3"> mark this lecture revised</label>
+
+<h3>The problem: the denominator</h3>
+<p>The skip-gram softmax sums over every vocabulary word, "more than 100,000 words, so the computing becomes very slow" <span class="src">D3 00:09:23 · 00:22:06</span>. The alternatives she named were hierarchical softmax and negative sampling, and she taught the second.</p>
+
+<h3>Negative sampling</h3>
+<p>"Train a binary logistic regression to differentiate a true pair versus several noise pairs." For "the cat sat on the mat", positives for <em>cat</em> are <em>the, sat, on</em>; negatives are random words like <em>apple, car, quickly</em>. Pull cat–sat together and push cat–apple apart <span class="src">D3 00:10:36 · 00:22:06</span>.</p>
+<span class="formula">Jₜ(θ) = log σ(u_oᵀ v_c) + Σ_{j=1..k} E_{j ∼ P(w)} [ log σ(−u_jᵀ v_c) ]        σ(x) = 1 / (1 + e^{−x})
+J_neg-sample(u_o, v_c, U) = − log σ(u_oᵀ v_c) − Σ_{k ∈ K sampled} log σ(−u_kᵀ v_c)</span>
+<p class="src">on screen · Oct-17 video ≈ 00:04–00:07 · slides 23, 28 ("sigmoid rather than softmax")</p>
+<div class="note"><strong>Why the minus sign:</strong> the negative inside σ(−u_jᵀ v_c) "encourages the dot product between the center word and negative words to be small (or negative). Thus, unrelated words are pushed apart in the embedding space." Her slide example: center <em>king</em>, positive <em>queen</em>, negatives <em>table, banana, car</em>. <span class="src">on screen · slide 27</span> It does not mean a "negative probability".</div>
+<div class="note warn"><strong>Trap on the slide, which distribution to sample from:</strong> U(w) is the unigram distribution. "If we sampled negatives directly from U(w), we would mostly pick very common words like 'the' or 'of'… So we reshape the distribution (using U(w)^{3/4}) to sample more useful negative words." <span class="src">on screen · slide 28</span> In class: "You don't need to get much into the detail; it's just that you should know the problem in resampling." <span class="src">D3 00:25:40</span> On stopwords: remove them in pre-processing; "text models always work better with pre-processing". <span class="src">D3 01:14:09</span></div>
+
+<h3>Why not count co-occurrences directly?</h3>
+<p>"There's something weird about iterating through the whole corpus (perhaps many times); why don't we just accumulate all the statistics of what words appear near each other?" <span class="src">on screen · slide 30</span> You have two options:</p>
+<ul>
+  <li><strong>Window-based</strong> (like word2vec): captures syntactic and semantic "word space".</li>
+  <li><strong>Word–document</strong>: gives general topics, leading to Latent Semantic Analysis ("document space").</li>
+</ul>
+<p>Her window example (length 1, symmetric) on "I like deep learning / I like NLP / I enjoy flying" is <a href="#cases">worked case 9</a>. The problems: the vectors grow with the vocabulary, are very high-dimensional and sparse, and classifiers built on them are less robust. So store "most" of the information in 25–1000 dense dimensions <span class="src">slides 31–32 · D3 00:31:36</span>.</p>
+
+<h3>GloVe (Pennington et al., 2014)</h3>
+<div class="tw"><table>
+<thead><tr><th>Probability and ratio</th><th class="n">k = solid</th><th class="n">k = gas</th><th class="n">k = water</th><th class="n">k = fashion</th></tr></thead>
+<tbody>
+<tr><td class="k">P(k | ice)</td><td class="n">1.9 × 10⁻⁴</td><td class="n">6.6 × 10⁻⁵</td><td class="n">3.0 × 10⁻³</td><td class="n">1.7 × 10⁻⁵</td></tr>
+<tr><td class="k">P(k | steam)</td><td class="n">2.2 × 10⁻⁵</td><td class="n">7.8 × 10⁻⁴</td><td class="n">2.2 × 10⁻³</td><td class="n">1.8 × 10⁻⁵</td></tr>
+<tr><td class="k">P(k|ice) / P(k|steam)</td><td class="n">8.9</td><td class="n">8.5 × 10⁻²</td><td class="n">1.36</td><td class="n">0.96</td></tr>
+</tbody></table></div>
+<p class="src">on screen · Oct-17 video ≈ 00:21–00:24 · slides 35–38</p>
+<p>How to read the ratio: ≫ 1 means k is much more associated with ice (<em>solid</em>); ≪ 1 means with steam (<em>gas</em>); ≈ 1 means k does not help distinguish them (<em>water</em> is related to both, <em>fashion</em> to neither) <span class="src">D3 00:42:44</span>.</p>
+<div class="note warn"><strong>Correction she made:</strong> "The reason we use GloVe is not that we want to reduce the computational cost. The reason we are using GloVe was that the ratio of the word co-occurrence counts gives us some other meaning." <span class="src">D3 00:45:01</span></div>
+<p>The derivation on her slides goes in four steps, from F(wᵢ, wⱼ, w̃ₖ) = Pᵢₖ / Pⱼₖ to the loss <span class="src">on screen · slides 39–41</span>:</p>
+<ol class="tight">
+  <li>Only the vector difference matters: F(wᵢ − wⱼ, w̃ₖ), "since meaning relationships are differences in embedding space (like king − man + woman)".</li>
+  <li>The relationship should be linear in the simplest way, and the output a single scalar, so use the dot product (wᵢ − wⱼ)ᵀ w̃ₖ.</li>
+  <li>Make it positive by wrapping it in exp. Taking logs gives log Pᵢₖ = wᵢᵀ w̃ₖ + bᵢ + b̃ₖ.</li>
+  <li>So GloVe trains wᵢ · w̃ⱼ ≈ log Xᵢⱼ.</li>
+</ol>
+<span class="formula">J = Σ_{i,j} f(Xᵢⱼ) · ( wᵢᵀ w̃ⱼ + bᵢ + b̃ⱼ − log Xᵢⱼ )²</span>
+<p>Her slide's nine implementation steps <span class="src">on screen · slides 37–40</span>:</p>
+<ol class="tight">
+  <li>Collect a corpus.</li>
+  <li>Decide a context window (e.g. ±5 words).</li>
+  <li>Count co-occurrences into X, where X[i,j] = how many times word j appears in the context of word i.</li>
+  <li>Use the log of the counts, because absolute counts are noisy and biased by word frequency.</li>
+  <li>Give each word two vectors plus biases: prediction_ij = wᵢ · w̃ⱼ + bᵢ + b̃ⱼ.</li>
+  <li>Make the prediction match log X[i,j].</li>
+  <li>Weight the pairs with f: about 0 when X = 0 (ignore non-occurrences), growing for small counts, saturating for very large ones, so frequent pairs do not dominate.</li>
+  <li>Minimise the weighted squared error by gradient descent.</li>
+  <li>Use wᵢ, or (wᵢ + w̃ᵢ)/2, as the final embedding.</li>
+</ol>
+<div class="note good"><strong>The one sentence to memorise:</strong> negative sampling makes skip-gram cheap by classifying one true pair against k sampled noise pairs (drawn from U(w)^¾). GloVe instead fits dot products to log co-occurrence counts because co-occurrence ratios carry meaning, not because it is faster.</div>
+</section>
+
+<!-- ============ D4 ============ -->
+<section id="d4">
+<div class="lec-head"><span class="lec-num d">VARSHNEY · D4</span><h2>Using embeddings, their limits, and language models</h2></div>
+<div class="lec-topics">fixed vs fine-tuned vs combined · extrinsic: F1, BLEU · no one size fits all · dog/dogs · fastText · whale ≈ fish · interpretability · bias · multilingual alignment · n-gram LM problems · neural LM</div>
+<div class="srcline">Mon 19 Oct · Tactiq live 1 h 25 m · video 2026-10-19 (over the upload limit, not viewed) · Notion ✓</div>
+<label class="check"><input type="checkbox" data-rev="d4"> mark this lecture revised</label>
+
+<h3>Using embeddings downstream</h3>
+<div class="tw"><table>
+<thead><tr><th>Choice</th><th>Pro</th><th>Con</th></tr></thead>
+<tbody>
+<tr><td class="k">Fixed (pre-trained)</td><td>Fewer parameters, less risk of overfitting</td><td>May not adapt to task meaning, e.g. "happy" for sentiment</td></tr>
+<tr><td class="k">Fine-tuned</td><td>Task-adaptive</td><td>Risk of forgetting general knowledge</td></tr>
+<tr><td class="k">Combined</td><td>More expressive: general plus task-specific information</td><td>Bigger model, higher computation cost</td></tr>
+</tbody></table></div>
+<p class="src">D4 00:00:39 – 00:04:03 · "It's not necessary that always fixed embeddings is good"</p>
+<div class="note"><strong>How you judge them:</strong> "Ultimately, you are not going to evaluate the performance of these embeddings using similarities… you will be evaluating them on the downstream task: F1, BLEU." F1 (precision and recall) for classification such as sentiment; BLEU for whether a generated sentence is close to the ground truth, as in translation <span class="src">D4 00:02:19 – 00:04:45</span>. Which embedding should you pick? The paper she showed concluded "no one size fits all… it's completely experimental" <span class="src">D4 00:06:11</span>.</div>
+
+<h3>What word vectors get wrong</h3>
+<div class="cards">
+  <div class="card"><h4>Surface form</h4><p><em>Dog</em> and <em>dogs</em> get completely different embeddings, because word-level models "ignore subword or morphological structure". <span class="src">00:07:41</span></p></div>
+  <div class="card"><h4>Facts</h4><p><em>Whale</em> sits close to <em>fish</em> because both appear near <em>ocean</em>, "not because whales are fish". Embeddings capture statistics, not logic. <span class="src">00:09:53</span></p></div>
+  <div class="card"><h4>Languages</h4><p>Embeddings trained on different languages are not aligned: <em>dog</em> vs <em>perro</em>, or Chinese 猫 vs <em>cat</em>. A matrix transformation brings the spaces together, with no dictionary built from scratch. <span class="src">00:12:17</span></p></div>
+  <div class="card"><h4>Interpretability</h4><p>In a 300-dimensional vector "we don't know what these axes tell us".</p></div>
+  <div class="card"><h4>Bias</h4><p>man : computer programmer :: woman : homemaker. Fix by post-processing or debiasing, or by balanced or filtered corpora.</p></div>
+</div>
+<div class="note jj"><strong>The fix for form, fastText (Facebook AI Research):</strong> learn embeddings for character n-grams of each word. Her example for <em>word</em>: w, wo, wor, word. An unseen word like <em>unknown</em> is built from seen pieces (un, no, …) by pooling or an LSTM. Related ideas: character embeddings fed through an LSTM, morpheme embeddings (un-fortunate-ly), BPE and WordPiece tokenisers. <span class="src">D4 00:09:53 · 00:12:17</span> Beyond the lecture: standard fastText also adds boundary markers, e.g. &lt;wo, wor, ord, rd&gt;.</div>
+
+<h3>Back to language models</h3>
+<span class="formula">Markov:  P(x_{t+1} | x_t,…,x₁) ≈ P(x_{t+1} | x_t,…,x_{t−n+2}) = count(n-gram) / count((n−1)-gram)</span>
+<div class="chain fail">
+  <div class="step"><b>Context lost</b><span>"…the proctor started the clock, the students opened their ___": a window that ignores <em>proctor</em> predicts <em>books</em></span></div>
+  <div class="step"><b>Zero numerator</b><span>The n-gram never occurred, so P = 0. Fix: smoothing</span></div>
+  <div class="step"><b>Zero denominator</b><span>The context never occurred, so the estimate is undefined. Fix: condition on less (backoff)</span></div>
+  <div class="step"><b>Storage</b><span>The number of n-grams grows with the corpus</span></div>
+</div>
+<p class="src">D4 00:32:32 · her example corpus: a trigram LM over 1.7 million words of business and financial news</p>
+<p>A neural LM concatenates the context embeddings, applies a feed-forward layer and a softmax over the vocabulary, then appends the predicted word and repeats. "Can you not do that now? Because you already implemented word2vec." <span class="src">D4 00:36:59</span></p>
+<div class="note amber"><strong>Practical she set:</strong> build an n-gram LM in PyTorch on an existing dataset (e.g. IMDb from PyTorch's libraries, not a hand-made list), generate 50–100-word paragraphs, and show them by screen share. Online students who did not share were marked absent. Raising n improves generation, "because now you are taking more context into picture". <span class="src">D4 00:58:36 · 01:03:53 · 01:21:34</span></div>
+<div class="note good"><strong>The one sentence to memorise:</strong> judge embeddings on the downstream task (F1, BLEU). Word-level vectors miss morphology, facts, cross-lingual alignment, interpretability and fairness, which is why subword models like fastText exist.</div>
+</section>
+
+<!-- ============ D5 ============ -->
+<section id="d5">
+<div class="lec-head"><span class="lec-num d">VARSHNEY · D5</span><h2>RNN language models and sequence labelling</h2></div>
+<div class="lec-topics">shared weights · hidden state · softmax output · Σ cross-entropy · teacher forcing · autoregressive generation · sequence labelling · BIO 2N + 1 · encoder–decoder</div>
+<div class="srcline">Fri 23 Oct · Tactiq live 43 m · no video in folder · Notion ✓ · <strong>not in the 24 Oct quiz</strong></div>
+<label class="check"><input type="checkbox" data-rev="d5"> mark this lecture revised</label>
+<p>This section rests mostly on your Notion page, checked against the transcript only for the BIO example and the logistics. Treat the formulas as "my notes" until her PDF arrives. She said she would share it on Monday <span class="src">D5 00:38:11</span>.</p>
+<span class="formula">hₜ = φ( W_xh xₜ + W_hh hₜ₋₁ + b_h )        oₜ = W_ho hₜ + b_o        p(yₜ) = softmax(oₜ)
+L = Σₜ − log p(yₜ = gold)                    #params = d_x·d_h + d_h² + d_h + d_h·V + V</span>
+<div class="cards">
+  <div class="card"><h4>Why RNNs</h4><p>The same weights at every step, so any input length works; the hidden state summarises the past.</p></div>
+  <div class="card"><h4>Teacher forcing</h4><p>In training, feed the gold previous token. At inference you must feed your own prediction (autoregressive). The mismatch is exposure bias.</p></div>
+  <div class="card"><h4>Weaknesses</h4><p>Slow on long sequences, hard to reach information many steps back, gradient problems (mentioned, not derived).</p></div>
+</div>
+<div class="note amber"><strong>Worked in class, BIO output size:</strong> with 5 entity types, B and I for each give 10, "plus 1 for the outside tag, so output labels will be 11". With hidden size 50, the output matrix is 50 × 11. General rule: 2N + 1. <span class="src">D5 00:36:52</span> POS tagging and NER are sequence labelling: one label per token, not one per sentence.</div>
+<div class="note good"><strong>The one sentence to memorise:</strong> an RNN reuses one set of weights over time, so it reads any length. Train it with teacher forcing and run it autoregressively; BIO needs 2N + 1 labels.</div>
+</section>
+
+<!-- ============ CASES ============ -->
+<section id="cases">
+<div class="rule"></div>
+<h2>Eleven worked cases</h2>
+<p class="dek">The numbers he computed live or put on a slide, recomputed here. Several match SRILM output to four decimals. Work each one with the answer covered first.</p>
+
+<h3>Case 1 · Zipf ratio</h3>
+<p>Rank 50 vs rank 150: f·r = c, so f₅₀ = c/50 and f₁₅₀ = c/150, giving a ratio of <strong>3</strong>. For rank 1 vs rank 2 the ratio is 2.</p>
+
+<h3>Case 2 · Entropy baselines</h3>
+<p>8-sided die: 3 bits. Fair coin: 1 bit. A uniform alphabet of M symbols: log₂ M, so 26 letters need 4.70 bits, which rounds up to a 5-bit code. English at about 2.3 bits per letter gives 1 − 2.3/5 ≈ 54% redundancy, the "50%" on the slide.</p>
+
+<h3>Case 3 · Bigram: "Sam I do I like" vs "Sam I am"</h3>
+<span class="formula">S₁: P(Sam|&lt;s&gt;) P(I|Sam) P(do|I) P(I|do) P(like|I) P(&lt;/s&gt;|like)
+  = 3/5 · 3/5 · 1/5 · 1/2 · 2/5 · 2/3 = 0.6 · 0.6 · 0.2 · 0.5 · 0.4 · 0.667 = 0.0096
+  log₁₀ = −2.0177      ppl = 10^(2.0177/6) = 2.169      ppl1 = 10^(2.0177/5) = 2.532
+S₂: 0.6 · 0.6 · P(am|I)=0.4 · P(&lt;/s&gt;|am)=0.5 = 0.072
+  log₁₀ = −1.1427      ppl = 10^(1.1427/4) = 1.930      ppl1 = 10^(1.1427/3) = 2.404</span>
+<p><strong>S₂ wins.</strong> SRILM prints exactly −2.01773 / 2.16914 / 2.53248 and −1.14267 / 1.93049 / 2.40375.</p>
+
+<h3>Case 4 · Unigram on the same pair</h3>
+<span class="formula">S₁: (5/22)·(5/22)·(2/22)·(5/22)·(3/22)·(5/22) = (5/22)⁴ (2/22)(3/22) = 3.31 × 10⁻⁵   log = −4.4805   ppl 5.581   ppl1 7.872
+S₂: (5/22)³ (2/22) = 1.07 × 10⁻³                                         log = −2.9718   ppl 5.533   ppl1 9.786</span>
+<p><strong>S₂ wins on probability</strong> by a factor of about 32, yet its <em>ppl</em> (5.53 vs 5.58) is nearly identical. Perplexity normalises by length; probability does not. This makes a good MCQ.</p>
+
+<h3>Case 5 · OOV and Laplace: "Sam I do like linguistics"</h3>
+<p>Unsmoothed, P(linguistics | like) = 0, so P(S) = 0 and perplexity = ∞ (the official solution's answer). Laplace unigram uses V = {I, am, Sam, like, do, &lt;/s&gt;, UNK}, |V| = 7, N = 22, so P(w) = (c + 1)/29:</p>
+<span class="formula">Sam 6/29 · I 6/29 · do 3/29 · like 4/29 · UNK 1/29 · &lt;/s&gt; 6/29 = 4.36 × 10⁻⁶     log = −5.3608   ppl 7.825   ppl1 11.807</span>
+<p>In class: "5 + 1 over 17 + 5 + 7… 0.207, same" <span class="src">R7 01:09:17</span>. SRILM gives −5.36075 / 7.82454 / 11.8073. For the smoothed bigram, pure add-1 gives P(UNK | like) = (0 + 1)/(3 + 7) = 0.1, but SRILM's backoff gives 0.0294, for a total log of −4.601. See <a href="#sources">conflicts</a> for how the official solution mixes the two.</p>
+
+<h3>Case 6 · Markov chain</h3>
+<p>π = [He 0.7, cool 0.1, is 0.2]. P(is he cool) = π(is) · a(is→He) · a(He→cool) = 0.2 · 0.5 · 0.3 = <strong>0.03</strong> (slide). P(he is): the transition alone is 0.6 (the answer accepted in class); including the start gives 0.42.</p>
+
+<h3>Case 7 · HMM: "killer clown"</h3>
+<p>From the slide 27 tables: NN = 0.75 · 0.3 · 0.5 · 0.4 = <strong>0.045</strong>, and AA, AN and NA are all 0. The best tag sequence is N N.</p>
+
+<h3>Case 8 · Viterbi: "killer crazy clown"</h3>
+<span class="formula">t=1 killer:  δ(A) = 0.25·0 = 0          δ(N) = 0.75·0.3 = 0.225
+t=2 crazy:   δ(A) = max(0·0, 0.225·0.5)·b_A(crazy)=1 → 0.1125 (from N)     δ(N) = max(…)·b_N(crazy)=0 → 0
+t=3 clown:   δ(A) = …·b_A(clown)=0 → 0     δ(N) = max(0.1125·a_AN=1, 0·0.5)·0.4 = 0.045 (from A)
+best path:   N → A → N,  probability 0.045      (check: 0.75·0.3·0.5·1·1·0.4 = 0.045)</span>
+<p>Brute force would score 2³ = 8 sequences; Viterbi keeps only 2 partial scores per step.</p>
+
+<h3>Case 9 · Window co-occurrence matrix</h3>
+<p>Her corpus is "I like deep learning / I like NLP / I enjoy flying", with window 1, symmetric <span class="src">on screen · slide 31</span>. Non-zero cells: I–like <strong>2</strong>, I–enjoy 1, like–deep 1, like–NLP 1, deep–learning 1, enjoy–flying 1, learning–. 1, NLP–. 1, flying–. 1. The rest of the 8 × 8 table is zeros, which is why these vectors are sparse.</p>
+
+<h3>Case 10 · GloVe ratios</h3>
+<p>3.0×10⁻³ / 2.2×10⁻³ = 1.36 ✓ (water: no discrimination). 6.6×10⁻⁵ / 7.8×10⁻⁴ = 0.085 ✓ (gas → steam). Recomputed from the rounded table entries, solid gives 8.6 and fashion 0.94; the slide prints the paper's 8.9 and 0.96 from unrounded values. Read the meaning, not the third digit.</p>
+
+<h3>Case 11 · Counting outputs</h3>
+<p>BIO with N entity types needs 2N + 1 labels (5 types → 11; PER, ORG, LOC → 7). Brute-force tagging of 10 words with 4 tags means 4¹⁰ = 1,048,576 paths; Viterbi needs about 10 · 4² = 160 multiply-max steps.</p>
+</section>
+
+<!-- ============ CONFUSE ============ -->
+<section id="confuse">
+<div class="rule"></div>
+<h2>Confusion killers</h2>
+<p class="dek">Pairs that look alike and are examined because they look alike.</p>
+<div class="tw"><table>
+<thead><tr><th>Pair</th><th>The difference</th></tr></thead>
+<tbody>
+<tr><td class="k">Entropy vs perplexity</td><td>H is the expected surprise in bits; PP = 2^H is the number of next-word choices</td></tr>
+<tr><td class="k">H(Y) vs H(Y|X)</td><td>Uncertainty before vs after the context; H(Y|X) ≤ H(Y)</td></tr>
+<tr><td class="k">H(Y|X) vs H(w|h)</td><td>Average over all contexts vs the surprisal −log m(w|h) of one word in one history</td></tr>
+<tr><td class="k">Joint vs conditional entropy</td><td>Bits to specify both vs extra bits for Y once X is known</td></tr>
+<tr><td class="k">MI vs KL</td><td>MI is the information shared by two variables, symmetric; KL is bits wasted coding p with q, not symmetric, same event space</td></tr>
+<tr><td class="k">ppl vs ppl1</td><td>ppl counts &lt;/s&gt; in N; ppl1 counts words only, so it is larger</td></tr>
+<tr><td class="k">&lt;s&gt; vs &lt;/s&gt; counting</td><td>Count &lt;/s&gt; (22 tokens), not &lt;s&gt; (27 would be wrong under his convention)</td></tr>
+<tr><td class="k">Likelihood vs log-likelihood</td><td>Product (underflows) vs sum of logs (stable)</td></tr>
+<tr><td class="k">Extrinsic vs intrinsic</td><td>Task score (F1, BLEU, accuracy) vs model-internal score (perplexity)</td></tr>
+<tr><td class="k">Smoothing vs backoff vs interpolation</td><td>Redistribute mass vs fall to a lower order only when missing vs always mix orders with Σλ = 1</td></tr>
+<tr><td class="k">Unseen vs rare</td><td>Unseen may be ungrammatical ("I eat it's"); rare is merely infrequent</td></tr>
+<tr><td class="k">Dev vs test</td><td>Tune λ on dev (10–20%); report once on test; never train on test</td></tr>
+<tr><td class="k">Generative vs discriminative</td><td>P(W, T), e.g. HMM, vs P(T | W), e.g. MaxEnt or perceptron (better on ambiguity, per Prof. Ranjan)</td></tr>
+<tr><td class="k">Transition vs emission</td><td>Tag → next tag vs tag → word; each row sums to 1</td></tr>
+<tr><td class="k">Moore vs edge-output FSA</td><td>Output on states vs on edges; equivalent; an HMM is a probabilistic Moore machine</td></tr>
+<tr><td class="k">Brute force vs Viterbi</td><td>qᵀ paths vs O(T·q²) dynamic programming</td></tr>
+<tr><td class="k">n-gram LM vs HMM</td><td>Words directly with P(wₙ|wₙ₋₁) vs hidden tags with transitions × emissions</td></tr>
+<tr><td class="k">POS vs chunk vs NER</td><td>A tag per word vs IOB spans of phrases vs IOB spans of entities</td></tr>
+<tr><td class="k">Constituency vs dependency</td><td>Nested phrases vs head → dependent arcs</td></tr>
+<tr><td class="k">NLP vs CL vs NLU</td><td>Language → information vs language → model vs meaningful understanding (shares both)</td></tr>
+<tr><td class="k">ELIZA vs SHRDLU</td><td>Pattern match → reply vs represent → reason → act → reply</td></tr>
+<tr><td class="k">Turing vs Total Turing</td><td>Conversation only vs plus perception and actuation</td></tr>
+<tr><td class="k">Computational vs algorithmic level</td><td>What and why vs how (representation and rules)</td></tr>
+<tr><td class="k">Skip-gram vs CBOW</td><td>Center → context vs context → center</td></tr>
+<tr><td class="k">v_w vs u_w</td><td>The same word as center vs as context: two roles, not two meanings</td></tr>
+<tr><td class="k">Sigmoid vs softmax</td><td>Binary probability vs a distribution over all words or classes</td></tr>
+<tr><td class="k">Full softmax vs negative sampling</td><td>Normalise over |V| vs k binary noise contrasts</td></tr>
+<tr><td class="k">U(w) vs U(w)^¾</td><td>Raw unigram (picks the, of) vs reshaped (more useful negatives)</td></tr>
+<tr><td class="k">word2vec vs GloVe</td><td>Predictive over local windows vs count-based over global co-occurrence ratios (motivated by meaning, not speed)</td></tr>
+<tr><td class="k">Window vs word–document co-occurrence</td><td>Syntax and semantics ("word space") vs topics, LSA ("document space")</td></tr>
+<tr><td class="k">Fixed vs fine-tuned embeddings</td><td>Fewer parameters, less overfitting vs task-adaptive but may forget</td></tr>
+<tr><td class="k">Word-level vs fastText</td><td>One vector per word vs sum of character n-gram vectors (handles dog/dogs and OOV)</td></tr>
+<tr><td class="k">Teacher forcing vs autoregressive</td><td>Gold previous token in training vs your own prediction at inference</td></tr>
+</tbody></table></div>
+</section>
+
+<!-- ============ DRILLS ============ -->
+<section id="drills">
+<div class="rule"></div>
+<h2>Scenario drill bank</h2>
+<p class="dek">Sixty-seven questions in their formats. Read the situation, commit to an answer out loud, then open it. Twelve are marked <span class="mono">asked</span> (a professor put them to the class or named them as exam material) and two <span class="mono">student Q</span> (a student asked and the professor answered).</p>
+
+<h3>Language, levels and understanding (R1–R3)</h3>
+<details class="drill"><summary>Why can't language transmit reality?</summary><div class="ans"><p>It transmits symbols, form–meaning pairs linked to concepts built from percepts. The listener reconstructs a conceptualised, projected reality (R1 01:17:05).</p></div></details>
+<details class="drill"><summary>"The cat jumped over the wall." What does this sentence fail to specify, and why does that matter for NLU?</summary><div class="ans"><p>The trajectory and shape of the jump. <em>Over</em> allows many paths. Language underspecifies and listeners infer, so a system must resolve this from context.</p></div></details>
+<details class="drill"><summary>Distinguish the symbolic and interactive functions of language.<span class="drill-tag">slide</span></summary><div class="ans"><p>Symbolic: encoding concepts as conventional form–meaning pairs. Interactive: communicating, thought → representation → signal → representation → reconstructed thought.</p></div></details>
+<details class="drill"><summary>You are asked to design a robot that flies. Where do you start?<span class="drill-tag asked">asked</span></summary><div class="ans"><p>At the computational level: what is the goal and why. Then the algorithm (flap → thrust → lift, balance). Then the implementation (wings, motors, sensors). Validate bottom-up. Jumping to hardware is the error he corrected (R2 00:44:01).</p></div></details>
+<details class="drill"><summary>A question asks "how" a system turns input into output. Which Marr level is that?</summary><div class="ans"><p>Algorithmic (representation and transformation). "Why/what" is computational; "with what" is implementation.</p></div></details>
+<details class="drill"><summary>A chatbot gives perfectly appropriate replies to every message. Does it understand language?</summary><div class="ans"><p>Not necessarily. ELIZA produced appropriate-looking replies by pattern matching. Understanding needs representation, reasoning and action (SHRDLU), or Total Turing abilities.</p></div></details>
+<details class="drill"><summary>Why is the Turing test called a functional or operational definition of intelligence?</summary><div class="ans"><p>It never defines thinking; it only says that if you cannot tell the machine from a human, call it intelligent (R2 00:58:58).</p></div></details>
+<details class="drill"><summary>What does the Total Turing test add, and why?</summary><div class="ans"><p>Perception and actuation, interacting with the real world. Human intelligence is embodied, not just conversational.</p></div></details>
+<details class="drill"><summary>Which statements about Pirahã are correct?<span class="drill-tag asked">asked</span></summary><div class="ans"><p>It is claimed (by Everett) to lack recursion; that challenges recursion as the defining feature of human language; the debate is open and it is treated as an outlier (R2 01:26:07; R6 00:24:02).</p></div></details>
+<details class="drill"><summary>Classify: a sentiment-analysis product, a computational model of human sentence processing, a system that meaningfully understands instructions.</summary><div class="ans"><p>NLP (language → information), CL (language → model), NLU (shares both goals).</p></div></details>
+<details class="drill"><summary>"Copy the local patient files to disk." What kind of ambiguity?</summary><div class="ans"><p>Structural (attachment): is it the patients or the files that are local?</p></div></details>
+<details class="drill"><summary>Why did Shannon's view push NLP toward data?</summary><div class="ans"><p>Information depends on probability, not meaning, and co-occurrence is information (Firth), so language can be treated empirically and computationally (slide 44).</p></div></details>
+
+<h3>Zipf, entropy and information (R4–R5)</h3>
+<details class="drill"><summary>Should the 50th most common word occur three times as often as the 150th?<span class="drill-tag">slide</span></summary><div class="ans"><p>Yes. f·r is constant, so the ratio is 150/50 = 3.</p></div></details>
+<details class="drill"><summary>Random monkey-typed text also shows a Zipf-like curve. What do you conclude?</summary><div class="ans"><p>Zipf alone does not prove linguistic structure; it can arise from combinatorics. Human language differs in being predictable from context. The question is still open (R4 00:18:29).</p></div></details>
+<details class="drill"><summary>Why are the most frequent words short?</summary><div class="ans"><p>Least effort (Zipf), and the efficiency side of the efficiency–robustness trade-off. Long words carry more information and survive noise.</p></div></details>
+<details class="drill"><summary>Why does English need about 2.3 bits per letter, not 5?</summary><div class="ans"><p>Redundancy: letters follow strict statistical patterns, so about half the raw capacity is predictable.</p></div></details>
+<details class="drill"><summary>What happens to Shannon-style generation as you go to 7- or 8-grams?</summary><div class="ans"><p>It "fumbles": long sequences are rarely observed, so the estimates are sparse (R4 00:49:26).</p></div></details>
+<details class="drill"><summary>Compute the entropy of an 8-sided die and interpret it.<span class="drill-tag">slide</span></summary><div class="ans"><p>3 bits, the average message length needed to transmit an outcome (encode 1–8 as 3-bit codes).</p></div></details>
+<details class="drill"><summary>Explain entropy and what it says about a given symbol sequence.<span class="drill-tag asked">asked</span></summary><div class="ans"><p>It is the expected surprise of a random variable's outcomes. On its own it says nothing about the sequence or its order; for language you need conditional entropy (R5 01:10:44, 01:11:50).</p></div></details>
+<details class="drill"><summary>Derive H(Y|X) = −Σ p(x,y) log p(y|x).<span class="drill-tag asked">asked</span></summary><div class="ans"><p>H(Y|X) = Σₓ p(x) H(Y|X=x) = −Σₓ p(x) Σᵧ p(y|x) log p(y|x) = −Σ p(x,y) log p(y|x), using p(x)p(y|x) = p(x,y).</p></div></details>
+<details class="drill"><summary>Derive the chain rule H(X,Y) = H(X) + H(Y|X).<span class="drill-tag asked">asked</span></summary><div class="ans"><p>−E log p(x,y) = −E log[p(x)p(y|x)] = −E log p(x) − E log p(y|x). Split the expectation.</p></div></details>
+<details class="drill"><summary>Prove I(X;Y) = I(Y;X).<span class="drill-tag asked">asked</span></summary><div class="ans"><p>In Σ p(x,y) log [p(x,y)/(p(x)p(y))], both the joint and the product are unchanged by swapping X and Y. Alternatively, I = H(X) + H(Y) − H(X,Y) is visibly symmetric.</p></div></details>
+<details class="drill"><summary>Why does total joint uncertainty not depend on which variable you describe first?<span class="drill-tag asked">student Q</span></summary><div class="ans"><p>The joint is an order-free "mental bag"; you impose order only because you must say one thing at a time (R5 01:23:21).</p></div></details>
+<details class="drill"><summary>X and Y are independent. What are I(X;Y) and H(X,Y)?</summary><div class="ans"><p>I = 0, and H(X,Y) = H(X) + H(Y).</p></div></details>
+<details class="drill"><summary>How would you find collocations like "New Delhi" in a corpus?</summary><div class="ans"><p>Mutual information: P(Delhi | New) ≫ P(Delhi) means the words share information.</p></div></details>
+<details class="drill"><summary>You fit a word distribution on one country's data and use it to code another's. What measures the cost?</summary><div class="ans"><p>KL divergence D(p‖q): the extra bits wasted coding p with q. The distributions must be over the same event space.</p></div></details>
+
+<h3>Perplexity, n-grams and smoothing (R6–R7)</h3>
+<details class="drill"><summary>Define perplexity the way Prof. Ranjan did.</summary><div class="ans"><p>2^Ĥ, the number of possible next words that can follow any word. Lower means a more confident, better LM.</p></div></details>
+<details class="drill"><summary>LM A reports perplexity 120, LM B reports 95 with a different vocabulary. Which is better?<span class="drill-tag asked">asked</span></summary><div class="ans"><p>You can't say. Perplexities are comparable only with identical vocabularies (R7 00:43:08).</p></div></details>
+<details class="drill"><summary>A teammate tuned λ on the test set and reports a lower perplexity.</summary><div class="ans"><p>Invalid: the model then has knowledge of the test set. Tune on dev, report once on test.</p></div></details>
+<details class="drill"><summary>From the Markov chain diagram, what is P("he is")?<span class="drill-tag asked">asked</span></summary><div class="ans"><p>0.6 from the He → is arc (accepted in class). With π(He) = 0.7, the full probability is 0.42.</p></div></details>
+<details class="drill"><summary>Can a weighted FSA for language have a self-loop?<span class="drill-tag asked">student Q</span></summary><div class="ans"><p>Yes. Repetition happens ("he, he is my brother"), per Prof. Ranjan's answer to the objection (R6 01:25:20).</p></div></details>
+<details class="drill"><summary>How many tokens do you divide by for unigrams in the 5-sentence Sam corpus?<span class="drill-tag asked">asked</span></summary><div class="ans"><p>22: 17 words + 5 &lt;/s&gt;. Not 27; &lt;s&gt; is redundant (R7 00:03:58).</p></div></details>
+<details class="drill"><summary>Under a bigram model, which is likelier: "Sam I do I like" or "Sam I am"?<span class="drill-tag">slide</span></summary><div class="ans"><p>"Sam I am": 0.072 vs 0.0096.</p></div></details>
+<details class="drill"><summary>Two sentences differ 30× in unigram probability but have almost equal ppl. How?</summary><div class="ans"><p>Perplexity normalises by length, which compensates for the shorter sentence's fewer factors (Case 4).</p></div></details>
+<details class="drill"><summary>A test sentence contains a word never seen in training. What happens, and what fixes it?</summary><div class="ans"><p>The MLE probability is 0, so P(S) = 0 and PP = ∞. Map it to UNK and smooth (Laplace gives 1/29 on the toy data).</p></div></details>
+<details class="drill"><summary>A trigram is unseen but its bigram is frequent. Should you back off automatically?</summary><div class="ans"><p>No. It may be a "grammatical null", an implausible sequence. Prefer interpolation with tuned λ (R7 00:50:59).</p></div></details>
+<details class="drill"><summary>Why take logs of likelihood?</summary><div class="ans"><p>Products of many small probabilities underflow; logs turn the product into a stable sum.</p></div></details>
+<details class="drill"><summary>What does SRILM use if you give no smoothing flag?</summary><div class="ans"><p>Good-Turing discounting. <code>-addsmooth 0</code> gives unsmoothed; <code>-addsmooth 1</code> gives Laplace.</p></div></details>
+<details class="drill"><summary>What is the difference between ppl and ppl1 in SRILM output?</summary><div class="ans"><p>ppl divides by words + sentences (counts &lt;/s&gt;); ppl1 divides by words only.</p></div></details>
+<details class="drill"><summary>Unigram, bigram and trigram on WSJ give perplexity 962, 170 and 109. What does that show, and what's the catch?</summary><div class="ans"><p>More context gives lower perplexity, but higher orders get sparser, so you need smoothing or interpolation.</p></div></details>
+
+<h3>Tagging and syntax (R8)</h3>
+<details class="drill"><summary>Given π, transition and emission tables, find the best tags for "killer clown".<span class="drill-tag asked">asked</span></summary><div class="ans"><p>Score all 2² paths; AA, AN and NA are 0 because of zero emissions or transitions; NN = 0.75·0.3·0.5·0.4 = 0.045 (R8 00:26:14).</p></div></details>
+<details class="drill"><summary>Why can't you brute-force tag a 20-word sentence with 45 tags?</summary><div class="ans"><p>45²⁰ paths is exponential. Viterbi needs about 20·45² steps.</p></div></details>
+<details class="drill"><summary>Explain Viterbi without equations.<span class="drill-tag asked">asked</span></summary><div class="ans"><p>Keep the best path into each state at each step and extend only those; you never restart the search. That prunes the space drastically (R8 00:24:09).</p></div></details>
+<details class="drill"><summary>An emission table row for tag A sums to 0.9. What's wrong?</summary><div class="ans"><p>It is not a valid distribution; emissions from a state must sum to 1 (as must outgoing transitions).</p></div></details>
+<details class="drill"><summary>Which handles ambiguous words better, an HMM or a perceptron tagger, and why?</summary><div class="ans"><p>Typically the discriminative perceptron: it models P(T|W) with rich context over the whole sentence (R8 01:03:41).</p></div></details>
+<details class="drill"><summary>Is an HMM a Mealy-type or a Moore-type machine?</summary><div class="ans"><p>Moore type: outputs (emissions) are attached to states.</p></div></details>
+<details class="drill"><summary>FSA with F = {q3}: why is "bb" rejected and "bac" not even processed?</summary><div class="ans"><p>"bb" ends in q1, which is not final. For "bac" no transition is defined for c from the current state.</p></div></details>
+<details class="drill"><summary>Tag "We saw the yellow dog" with IOB chunks.</summary><div class="ans"><p>We/B-NP saw/B-VP the/B-NP yellow/I-NP dog/I-NP.</p></div></details>
+<details class="drill"><summary>How do you test whether a group of words is a constituent?</summary><div class="ans"><p>See whether it moves as a unit: "[to the children] [about drugs]" can swap; splitting them is ungrammatical.</p></div></details>
+<details class="drill"><summary>"I shot an elephant in my pajamas" has two parses. How do you pick one?</summary><div class="ans"><p>Attachment ambiguity: score each structure's rules probabilistically and take the higher (R8 00:49:30).</p></div></details>
+<details class="drill"><summary>What does a dependency arc encode that a phrase-structure node does not?</summary><div class="ans"><p>A head → dependent relation with a functional label (subj, obj, det…), directly between words.</p></div></details>
+
+<h3>Vectors and embeddings (D1–D4)</h3>
+<details class="drill"><summary>The loss curve oscillates and moves away from the minimum. What do you change?</summary><div class="ans"><p>Lower the learning rate; it is overshooting.</p></div></details>
+<details class="drill"><summary>Why stack nonlinear layers rather than linear ones?</summary><div class="ans"><p>Stacked linear layers stay a line (y = mx + c); a nonlinearity lets the model bend to the data.</p></div></details>
+<details class="drill"><summary>When do you use sigmoid and when softmax?<span class="drill-tag asked">asked</span></summary><div class="ans"><p>Sigmoid for binary classification; softmax for a distribution over many classes, e.g. the next token over |V| (D2 00:13:43).</p></div></details>
+<details class="drill"><summary>Why does word2vec keep two vectors per word?</summary><div class="ans"><p>A word plays two roles, center (v) and context (u). It does not have two meanings (D2 00:10:44).</p></div></details>
+<details class="drill"><summary>Which word is the input in skip-gram, and how often is each word used as input?</summary><div class="ans"><p>The center word; every word becomes the center once as the window slides (D2 00:25:30).</p></div></details>
+<details class="drill"><summary>Skip-gram training on a 100k vocabulary is too slow. Why, and what fixes it?</summary><div class="ans"><p>The softmax denominator sums over all 100k words. Negative sampling: σ on the true pair plus k sampled noise pairs.</p></div></details>
+<details class="drill"><summary>Your negative samples are almost all "the", "of", "a". What went wrong?</summary><div class="ans"><p>You sampled from raw U(w). Use U(w)^¾ and remove stopwords in pre-processing.</p></div></details>
+<details class="drill"><summary>What does the minus sign in log σ(−u_kᵀ v_c) do?</summary><div class="ans"><p>It pushes the center–noise dot product down, moving unrelated words apart. It is not a negative probability.</p></div></details>
+<details class="drill"><summary>A student says GloVe exists to be cheaper than word2vec. Correct them.</summary><div class="ans"><p>GloVe exists because co-occurrence ratios carry meaning; computational cost is not the reason (D3 00:45:01).</p></div></details>
+<details class="drill"><summary>P(water|ice)/P(water|steam) = 1.36. Does "water" help separate ice from steam?</summary><div class="ans"><p>Barely. A ratio ≈ 1 means it does not distinguish them; <em>solid</em> (8.9) and <em>gas</em> (0.085) do.</p></div></details>
+<details class="drill"><summary>Why does GloVe weight pairs with f(X_ij)?</summary><div class="ans"><p>Rare pairs are noisy and very frequent ones shouldn't dominate. f is about 0 at X = 0, grows, then saturates.</p></div></details>
+<details class="drill"><summary>Raw co-occurrence vectors make your classifier brittle. Why, and what do you do?</summary><div class="ans"><p>They are huge and sparse. Reduce to 25–1000 dense dimensions.</p></div></details>
+<details class="drill"><summary>You must choose between frozen pre-trained and fine-tuned embeddings for a small sentiment dataset.</summary><div class="ans"><p>Frozen reduces overfitting but may miss task meaning; fine-tuned adapts but may forget. Combining both costs more. Decide experimentally; no one size fits all.</p></div></details>
+<details class="drill"><summary>How do you evaluate embeddings for sentiment vs for translation?</summary><div class="ans"><p>Extrinsically: F1 for sentiment, BLEU for translation (D4 00:02:19).</p></div></details>
+<details class="drill"><summary>"dogs" gets a vector unrelated to "dog", and "unknown" has no vector at all. One fix for both?</summary><div class="ans"><p>fastText character n-grams: compose vectors from subword pieces.</p></div></details>
+<details class="drill"><summary>Your embedding puts "whale" next to "fish". Is the model wrong?</summary><div class="ans"><p>It is doing what it was trained to do: words sharing contexts (ocean) end up close. Embeddings encode distribution, not facts.</p></div></details>
+</section>
+
+<!-- ============ LABS ============ -->
+<section id="labs">
+<div class="rule"></div>
+<h2>The two labs</h2>
+<p class="dek">Prof. Ranjan treats lab steps as part of the course. The activity questions are the most likely source of short exam questions on tools.</p>
+<h3>SRILM: estimating word probabilities</h3>
+<p>The handout's three steps are: count n-grams, train the LM with smoothing and backoff, then test for perplexity and per-word log-probability.</p>
+<span class="formula">./ngram-count -text browndata/brown-train.txt -order 2 -write brown-train.count
+./ngram-count -read brown-train.count -order 2 -lm brown-train.lm -addsmooth 0 -unk
+./ngram -lm brown-train.lm -ppl browndata/brown-test.txt
+./ngram -lm brown-train.lm -ppl browndata/brown-test.txt -debug 2
+./ngram -lm bigram.lm -mix-lm unigram.lm -lambda 0.5 -ppl brown-dev.txt</span>
+<div class="tw"><table>
+<thead><tr><th>Piece</th><th>Meaning</th></tr></thead>
+<tbody>
+<tr><td class="k">ngram-count / ngram</td><td>Train (count + LM) / test</td></tr>
+<tr><td class="k">-order n</td><td>1 unigram, 2 bigram, 3 trigram</td></tr>
+<tr><td class="k">-lm file</td><td>Write or read the ARPA LM: log₁₀ probability, n-gram, log₁₀ backoff weight</td></tr>
+<tr><td class="k">-unk</td><td>OOV → &lt;unk&gt; with smoothed probability</td></tr>
+<tr><td class="k">-addsmooth k</td><td>Add-k; 0 = unsmoothed; with no flag, Good-Turing</td></tr>
+<tr><td class="k">-ppl, -debug 2</td><td>Perplexity; per-word probabilities</td></tr>
+<tr><td class="k">-mix-lm, -lambda</td><td>Linear interpolation; tune λ ∈ [0, 1] on dev, then test</td></tr>
+<tr><td class="k">Output</td><td>logprob (log₁₀ total), ppl (N = words − OOV + sentences), ppl1 (N = words − OOV)</td></tr>
+</tbody></table></div>
+<div class="note warn"><strong>SRILM vs hand calculation on OOV:</strong> by hand, an OOV makes P = 0 and perplexity ∞. SRILM without <code>-unk</code> skips the OOV word ("1 OOVs") and still reports finite numbers. For "Sam I do like linguistics" under the bigram model it reports logprob −2.087 and ppl 2.615. State which convention you are using.</div>
+<p>Handout questions:</p>
+<ol class="tight">
+  <li>Why −inf for OOV, and what do -unk and -addsmooth 0 signify?</li>
+  <li>Try another smoothing method.</li>
+  <li>Try a trigram.</li>
+  <li>Measure the effect of removing punctuation or stopwords.</li>
+  <li>Build an interpolated model with λ tuned on brown-dev.</li>
+</ol>
+<p>Submission: on Classroom via Colab; failing to submit gives a negative mark <span class="src">R7 01:11:23</span>.</p>
+<h3>POS tagging with NLTK</h3>
+<ul>
+  <li>The pipeline cells: Punkt sentence segmentation → word tokenisation → stemming (Porter) vs lemmatisation → taggers. The default tagger tags everything NN, a majority-class baseline that answers "what is the most frequent word category?"</li>
+  <li>Exercise 1a: tag "Colorless green ideas sleep furiously", "I saw the man with a telescope", "We will sell gasoline to anyone in a glass container" and "Get the cat with the gloves" with the perceptron tagger, and explain its mistakes. These are attachment and ambiguity probes.</li>
+  <li>Exercise 1b: the top 10 tags in Brown. Exercises 2–3: word and tag frequency analysis on Penn Treebank with the Universal vs PTB tagsets.</li>
+  <li>Submission: one-page report plus notebook; using libraries is fine. "Some people have implemented n-gram, bigram, trigram using Python; that was not required." <span class="src">R8 00:59:05</span></li>
+</ul>
+</section>
+
+<!-- ============ HOMEWORK ============ -->
+<section id="homework">
+<div class="rule"></div>
+<h2>Open questions they left you</h2>
+<ol>
+  <li>If a machine produces a completely appropriate response, does it understand the sentence? <span class="src">R3 slide 47 Q1</span></li>
+  <li>What is the difference between processing and understanding language? <span class="src">slide 47 Q2</span></li>
+  <li>If a model learns statistical patterns from enormous text, what exactly has it learned? <span class="src">slide 47 Q3</span></li>
+  <li>Is Zipf's law a property of language or of how we sample symbols? <span class="src">R4 00:18:29</span></li>
+  <li>Is recursion universal, given Pirahã? <span class="src">R2 01:28:06</span></li>
+  <li>How are we able to predict each other? (Freedom decreases with longer strings, and we narrow our repertoire to what we are exposed to.) <span class="src">slide 55</span></li>
+  <li>Prof. Varshney: with vs without negative sampling, what changes in the 2-D embedding plot, and why is the loss curve not smooth with it? <span class="src">D3 01:18:02 – 01:22:58</span></li>
+  <li>Prof. Varshney: how does generation quality change as you raise n in your PyTorch n-gram LM? <span class="src">D4 01:21:34</span></li>
+</ol>
+</section>
+
+<!-- ============ CARDS ============ -->
+<section id="cards">
+<div class="rule"></div>
+<h2>Flashcards</h2>
+<p class="dek">Tap to flip. Thirty-six cards, roughly in lecture order.</p>
+<div class="fc-grid" id="fcs"></div>
+</section>
+
+<!-- ============ QUIZ ============ -->
+<section id="quiz">
+<div class="rule"></div>
+<h2>Mock quiz</h2>
+<p class="dek">Twenty-five questions, 13 for Prof. Ranjan and 12 for Prof. Varshney, single-answer like the MCQ half of tonight's paper. Answers are explained after you check.</p>
+<form id="quizform"></form>
+<div class="quiz-bar">
+  <button class="act" type="button" id="qcheck">Check answers</button>
+  <button class="act ghost" type="button" id="qreset">Reset</button>
+  <span id="score" role="status" aria-live="polite"></span>
+</div>
+</section>
+
+<!-- ============ SHEET ============ -->
+<section id="sheet">
+<div class="rule"></div>
+<h2>Night-before sheet</h2>
+<p class="dek">Thirty-four lines. If you can expand each into three sentences, you are prepared.</p>
+<div class="card"><ol>
+  <li>Language pairs forms with concepts built from percepts; it transmits symbols for a projected reality.</li>
+  <li>Symbolic function encodes; interactive function communicates and the listener reconstructs.</li>
+  <li>Marr: computational (what and why) → algorithmic (how) → implementation (with what). Design top-down, validate bottom-up.</li>
+  <li>Turing test = behaviour only; Total Turing adds perception and actuation.</li>
+  <li>ELIZA: pattern → reply. SHRDLU: represent → reason → act → reply. Fluency ≠ understanding.</li>
+  <li>NLP: language → information; CL: language → model; NLU: both.</li>
+  <li>Pirahã: claimed to lack recursion; an outlier; the debate is open.</li>
+  <li>Zipf: f·r = const; least effort; efficiency vs robustness; random text can mimic it.</li>
+  <li>Shannon: information = uncertainty; English ≈ 2.3 of 5 bits per letter, ≈ 50% redundant.</li>
+  <li>H = −Σ p log p; die 3 bits, coin 1 bit. Entropy says nothing about order.</li>
+  <li>H(Y|X) = Σ p(x)H(Y|X=x) = −Σ p(x,y) log p(y|x).</li>
+  <li>Chain rule: H(X,Y) = H(X) + H(Y|X) = H(Y) + H(X|Y).</li>
+  <li>MI = H(X) − H(X|Y), symmetric, 0 if independent; it finds collocations.</li>
+  <li>KL = bits wasted coding p with q; same event space; not symmetric.</li>
+  <li>LM = probability distribution over language; the chain rule factorises a sentence.</li>
+  <li>PP = 2^Ĥ = m(w)^(−1/N) = number of next-word choices; lower is better.</li>
+  <li>Compare perplexities only with identical vocabularies. Never train or tune on test.</li>
+  <li>Bigram = C(ab)/C(a). Count &lt;/s&gt;, not &lt;s&gt;: 22 tokens in the Sam corpus.</li>
+  <li>Sam I am (0.072) beats Sam I do I like (0.0096).</li>
+  <li>OOV → 0 → PP ∞. Fix with UNK + Laplace (c+1)/(N+|V|) = 1/29.</li>
+  <li>Backoff vs interpolation; unseen may mean ungrammatical; λ on dev.</li>
+  <li>SRILM: ngram-count / ngram, -order -lm -unk -addsmooth -ppl -debug 2 -mix-lm -lambda; Good-Turing default.</li>
+  <li>HMM = π × emissions × transitions; rows sum to 1; a probabilistic Moore machine.</li>
+  <li>Killer clown NN = 0.75·0.3·0.5·0.4 = 0.045. Viterbi O(T·q²) vs qᵀ.</li>
+  <li>Generative P(W,T) vs discriminative P(T|W); accuracy rises toward neural.</li>
+  <li>IOB for chunks and NER. Constituency = nested phrases; dependency = head → dependent arcs.</li>
+  <li>Attachment ambiguity is resolved by probability.</li>
+  <li>Gradient: slope sign gives direction; learning rate too big overshoots, too small is slow; nonlinearity bends.</li>
+  <li>Text → tokens → vocabulary → one-hot / lookup → W → softmax → cross-entropy.</li>
+  <li>Skip-gram: center → context; two vectors per word; softmax over V; log-likelihood. CBOW is the reverse.</li>
+  <li>Sigmoid = binary; softmax = over all words. Her famous question.</li>
+  <li>Negative sampling: σ(true) + k σ(−noise), with negatives from U(w)^¾.</li>
+  <li>GloVe: co-occurrence ratios (ice/steam 8.9 · 0.085 · 1.36 · 0.96); fit to log X; f(X) weighting; motivated by meaning.</li>
+  <li>Embeddings: judge with F1/BLEU; they miss morphology (fastText), facts, alignment, interpretability and fairness.</li>
+</ol></div>
+</section>
+
+<!-- ============ LOGISTICS ============ -->
+<section id="logistics">
+<div class="rule"></div>
+<h2>Logistics</h2>
+<div class="tw"><table>
+<tbody>
+<tr><td class="k">Quiz</td><td>Sat 24 Oct, 7–8 PM, both instructors, about half an hour each; attendance taken. Prof. Varshney's part: about 10 MCQ + MSQ in about 20 minutes, up to the Oct 19 class (not Oct 23) <span class="src">D3 00:00:32 · D5 00:36:52 – 00:39:25</span></td></tr>
+<tr><td class="k">Prof. Varshney's assignment</td><td>"A small assignment from my portion… so that you are evaluated for the 10%", releasing "by today or this weekend" <span class="src">D3 00:17:28 · D5 00:40:37</span></td></tr>
+<tr><td class="k">Marks split</td><td>Minor/major weightage "will be put on the classroom"; not stated in any transcript</td></tr>
+<tr><td class="k">Prof. Ranjan's activities</td><td>SRILM on Brown via Colab, plus the POS one-page report and notebook. Not submitting gives a negative mark; deadlines announced on Classroom <span class="src">R7 01:11:23 · R8 00:59:05</span></td></tr>
+<tr><td class="k">GitHub</td><td>A public repo of practice code, submitted via Google Form; not submitting gives negative marks <span class="src">D1 01:19:57</span></td></tr>
+<tr><td class="k">Remaining classes</td><td>None on 30 and 31 Oct or 6 and 7 Nov; final classes 13–15 Nov <span class="src">D5 00:38:11</span></td></tr>
+<tr><td class="k">Major exam</td><td>"Between 15 to 20 November for online students, I think." Mode: Prof. Ranjan believed it was offline at centres; students said online and proctored for this batch <span class="src">D5 00:40:17 · R6 00:22:27</span></td></tr>
+<tr><td class="k">Attendance</td><td>75% institute policy; recordings for off-campus students <span class="src">R1 00:06:50</span></td></tr>
+<tr><td class="k">Textbook</td><td>Jurafsky &amp; Martin, Speech and Language Processing (ch. 3 for n-grams) <span class="src">R1 00:22:57</span></td></tr>
+</tbody></table></div>
+</section>
+
+<!-- ============ SOURCES ============ -->
+<section id="sources">
+<div class="rule"></div>
+<h2>Sources and conflicts</h2>
+<p class="dek">Where the sources disagree, and what is still unclear.</p>
+<h3>Provenance used throughout</h3>
+<ul class="tight">
+  <li><strong>Rxx hh:mm:ss / Dxx hh:mm:ss</strong>: the Tactiq live-class transcript at that timestamp.</li>
+  <li><strong>on screen</strong>: read from the Oct 17 video frames (Prof. Varshney's slides 23–40).</li>
+  <li><strong>slide n</strong>: Prof. Ranjan's decks, including formula and table images rendered from the .pptx.</li>
+  <li>D5 rests mostly on your Notion notes; everything else was checked against the transcripts.</li>
+</ul>
+<h3>Conflicts found</h3>
+<ol>
+  <li><strong>Slide 28 vs slide 29 (R8):</strong> "0.25 × 0.3 × 0.5 × 0.4 = 0.045". The 0.25 should be π_N = 0.75 (slide 29), and the result 0.045 is correct. Slide 30's "killer crazy clown … 2⁴ sequences": three words with two states give 2³ = 8; 2⁴ fits "killer crazy clown problem".</li>
+  <li><strong>Two HMM parameter sets</strong> in the same deck (slides 23–24 vs 27–29) give different answers for the same sentence (0.05 vs 0.045).</li>
+  <li><strong>Official toy solution vs SRILM:</strong> the smoothed-bigram step writes P(linguistics|like) "= 0.01 = (0.034)" and P(&lt;/s&gt;|linguistics) "0.143 (0.207)", mixing add-1 with unigram backoff. Pure add-1 gives 0.1 and 0.143; SRILM's backoff gives 0.0294 and 0.207 (log −4.601, ppl 5.846), not the solution's −4.539 / 5.707. The solution also rounds ⅔ to 0.67, giving −2.0156 instead of −2.0177.</li>
+  <li><strong>OOV convention:</strong> the solution says P = 0 and PP = ∞; SRILM skips the OOV word and reports finite values.</li>
+  <li><strong>Transcript vs slide (R4):</strong> "0.3 bits" at 01:14:55 vs 2.3 bits on the slide and later in class.</li>
+  <li><strong>GloVe table rounding:</strong> 1.9×10⁻⁴ / 2.2×10⁻⁵ = 8.6 and 1.7/1.8 = 0.94, while the slide prints 8.9 and 0.96 (the paper's unrounded values).</li>
+  <li><strong>Exam mode:</strong> offline (Prof. Ranjan) vs online and proctored (students) <span class="src">R6 00:22:27</span>.</li>
+  <li><strong>Your Notion notes:</strong> the R2 page calls SHRDLU "HIDALU". The handbook I made you earlier wrongly called slide 28's 0.045 an arithmetic error; this version corrects that.</li>
+</ol>
+<h3>Still unclear</h3>
+<ul>
+  <li>Markov chain: the "is → cool" arc reads 0.5 from the figure but is not labelled clearly.</li>
+  <li>R5 01:07:49: the population name in the KL example ("Neon") is garbled.</li>
+  <li>Prof. Varshney's D1, D2 and D4 slides were not available. Those videos are 420–600 MB, over the upload limit; a 720p copy would let me read them.</li>
+  <li>D5: whether the quiz runs past 8 PM ("seven to eight plus 15–20 minutes").</li>
+</ul>
+<h3>Questions to ask</h3>
+<p><strong>Prof. Ranjan:</strong> (1) In the exam, should perplexity follow SRILM's ppl (counting &lt;/s&gt;) or ppl1? (2) Which HMM parameter set is canonical, slides 23–24 or 27–29? (3) Will Viterbi be traced step by step or only the paths enumerated?</p>
+<p><strong>Prof. Varshney:</strong> (1) Will the negative-sampling objective or the GloVe loss be asked in full, or only their purpose? (2) What is the minor/major/assignment split for your half? (3) Is the U(w)^¾ reshaping examinable?</p>
+</section>
+
+</main>
+</div>
+
+<footer>
+  <p>Built from the Tactiq live-class transcripts of thirteen lectures, Prof. Ranjan's three slide decks, frames of Prof. Varshney's Oct 17 recording, the SRILM and POS labs with the official toy solution and SRILM's own output, and your Notion class notes.</p>
+  <p>Study aid only. Confirm exam dates, weightings and syllabus scope on Google Classroom.</p>
+</footer>
+<button class="theme-btn" id="themeBtn" type="button" aria-label="Switch colour theme">Theme</button>
+
+<script>
+(function(){
+  "use strict";
+  function store(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v);}catch(e){return null;}}
+
+  /* theme */
+  var root=document.documentElement, tb=document.getElementById("themeBtn");
+  var saved=store("fovl2-theme"); if(saved==="dark"||saved==="light") root.setAttribute("data-theme",saved);
+  tb.addEventListener("click",function(){
+    var cur=root.getAttribute("data-theme")||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");
+    var nx=cur==="dark"?"light":"dark"; root.setAttribute("data-theme",nx); store("fovl2-theme",nx);
+  });
+
+  /* revised checkboxes */
+  var rev={}; try{rev=JSON.parse(store("fovl2-rev")||"{}")||{};}catch(e){rev={};}
+  function mark(id,on){var a=document.querySelector('.rail a[data-lec="'+id+'"]'); if(a) a.classList.toggle("done",!!on);}
+  document.querySelectorAll("input[data-rev]").forEach(function(b){
+    var id=b.getAttribute("data-rev"); b.checked=!!rev[id]; mark(id,b.checked);
+    b.addEventListener("change",function(){rev[id]=b.checked; mark(id,b.checked); store("fovl2-rev",JSON.stringify(rev));});
+  });
+
+  /* flashcards */
+  var cards=[
+    ["Form–meaning pair","A linguistic symbol: a spoken, written or signed form conventionally paired with a meaning linked to a concept."],
+    ["Projected reality","Language transmits symbols that let the listener reconstruct a conceptualised reality, never reality itself."],
+    ["Marr's three levels","Computational (what and why), algorithmic (how: representation and rules), implementation (physical substrate)."],
+    ["Total Turing test","Turing test plus perception and actuation: interacting with the real world."],
+    ["ELIZA","1966 pattern-matching psychotherapist chatbot: appropriate-looking replies without understanding."],
+    ["SHRDLU","1972 micro-world system: language → representation → reasoning → action → response."],
+    ["NLP vs CL","NLP: language → information (applications). CL: language → model (linguistic phenomena)."],
+    ["Zipf's law","Frequency ∝ 1/rank, so frequency × rank is constant. 50th vs 150th = 3×."],
+    ["Least effort","Frequently used words are short to save time and energy (Zipf's explanation)."],
+    ["Redundancy of English","About 2.3 of 5 bits per letter carry information, so ≈ 50% is predictable."],
+    ["Entropy","Expected surprise −Σ p log p; average message length to transmit an outcome. Says nothing about order."],
+    ["Conditional entropy","Extra information still needed for Y once X is known: −Σ p(x,y) log p(y|x)."],
+    ["Chain rule","H(X,Y) = H(X) + H(Y|X) = H(Y) + H(X|Y)."],
+    ["Mutual information","Reduction in uncertainty of one variable from knowing the other; symmetric; 0 if independent."],
+    ["KL divergence","Average bits wasted coding events from p with a code built for q; same event space; not symmetric."],
+    ["Perplexity","2^Ĥ = m(w)^(−1/N): the number of possible next words. Lower is better; same vocabulary only."],
+    ["Markov assumption","A word depends only on a recent, finite history, which gives n-gram models."],
+    ["Bigram MLE","C(wₙ₋₁ wₙ) / C(wₙ₋₁)."],
+    ["Sam corpus N","17 words + 5 </s> = 22. The start tag is not counted."],
+    ["Laplace smoothing","(c + 1) / (N + |V|); on the toy data P(UNK) = 1/29."],
+    ["Grammatical null","A frequent bigram with an unseen trigram may be a real gap, so do not blindly back off."],
+    ["ppl vs ppl1","SRILM ppl divides by words + sentences; ppl1 by words only."],
+    ["HMM components","Start π, transitions P(tag|prev), emissions P(word|tag); each row sums to 1."],
+    ["Viterbi","Dynamic programming: keep the best path into each state per step. O(T·q²) vs qᵀ."],
+    ["Generative vs discriminative","P(W,T), e.g. HMM, vs P(T|W), e.g. perceptron or MaxEnt."],
+    ["IOB","B begins a span, I continues it, O is outside. Used for chunks and NER; 2N + 1 labels."],
+    ["Dependency structure","Directed head → dependent arcs with functional labels (subj, obj, det…)."],
+    ["Learning rate","Too large overshoots; too small converges slowly."],
+    ["Two vectors per word","v_w as center, u_w as context: two roles, not two meanings."],
+    ["Skip-gram P(o|c)","exp(u_oᵀv_c) / Σ_w exp(u_wᵀv_c): a softmax over the vocabulary."],
+    ["Sigmoid vs softmax","Sigmoid for binary; softmax for a distribution over all classes or words."],
+    ["Negative sampling","log σ(u_oᵀv_c) + Σ log σ(−u_kᵀv_c), with negatives from U(w)^¾."],
+    ["GloVe objective","Σ f(X_ij)(w_iᵀw̃_j + b_i + b̃_j − log X_ij)²."],
+    ["Ice/steam ratio","≫1: tied to ice (solid 8.9); ≪1: tied to steam (gas 0.085); ≈1: no help (water 1.36)."],
+    ["fastText","Character n-gram embeddings: handles morphology (dog/dogs) and OOV words."],
+    ["Teacher forcing","Feed the gold previous token in training; at inference, feed your own prediction."]
+  ];
+  var fcs=document.getElementById("fcs");
+  cards.forEach(function(c){
+    var b=document.createElement("button"); b.className="fc"; b.type="button"; b.setAttribute("aria-pressed","false");
+    b.innerHTML='<span class="fc-in"><span class="fc-face fc-front"></span><span class="fc-face fc-back"></span></span>';
+    b.querySelector(".fc-front").textContent=c[0]; b.querySelector(".fc-back").textContent=c[1];
+    b.addEventListener("click",function(){b.setAttribute("aria-pressed",b.getAttribute("aria-pressed")==="true"?"false":"true");});
+    fcs.appendChild(b);
+  });
+
+  /* quiz */
+  var Q=[
+    {p:"Ranjan",q:"Language transmits…",o:["Reality itself","Symbols that let the listener reconstruct a conceptualised reality","Only literal meaning","Percepts directly"],a:1,w:"\"It transmits symbols that allow us to reconstruct conceptualized reality\" (R1 01:17:05)."},
+    {p:"Ranjan",q:"Designing a system to make a robot fly, where should you start?",o:["Choose motors and wings","Write the control algorithm","Define the goal and why it matters (computational level)","Test the hardware"],a:2,w:"He corrected students who jumped to the method: start computational, then algorithm, then hardware; validate bottom-up."},
+    {p:"Ranjan",q:"ELIZA shows that…",o:["Grammar-based parsing enables understanding","Appropriate-looking responses are not the same as understanding","Micro-worlds are necessary","Statistical models beat rules"],a:1,w:"ELIZA used pattern matching only. SHRDLU added representation, reasoning and action."},
+    {p:"Ranjan",q:"Under Zipf's law, the 20th-ranked word is how many times as frequent as the 60th?",o:["1/3","2","3","40"],a:2,w:"f·r is constant, so 60/20 = 3."},
+    {p:"Ranjan",q:"What does entropy say about the order of symbols in a sequence?",o:["It measures the sequence's randomness","Nothing: it describes the randomness of a single event","It increases with sentence length","It equals perplexity"],a:1,w:"His correction in R5; you need conditional entropy for history."},
+    {p:"Ranjan",q:"H(X,Y) equals",o:["H(X) + H(Y) always","H(X) + H(Y|X)","H(X|Y) + H(Y|X)","H(X) − I(X;Y)"],a:1,w:"Chain rule. H(X)+H(Y) holds only under independence."},
+    {p:"Ranjan",q:"Why is I(X;Y) = I(Y;X)?",o:["Because KL is symmetric","Because p(x,y) and p(x)p(y) are both unchanged by swapping X and Y","Because H(X) = H(Y)","It isn't in general"],a:1,w:"Equivalently, I = H(X) + H(Y) − H(X,Y), which is symmetric."},
+    {p:"Ranjan",q:"KL divergence D(p‖q) is best described as",o:["Shared information between two variables","Bits wasted coding events from p with a code built for q","A symmetric distance","Joint entropy minus conditional entropy"],a:1,w:"Same event space required; not symmetric."},
+    {p:"Ranjan",q:"Two LMs report perplexity 80 and 60 on vocabularies of 10k and 20k. Conclusion?",o:["The 60 model is better","The 80 model is better","They are not comparable","Average them"],a:2,w:"Comparable only with identical vocabularies (R7 00:43:08)."},
+    {p:"Ranjan",q:"In the 5-sentence Sam corpus, the unigram denominator is",o:["17","22","27","5"],a:1,w:"17 words + 5 </s>; the start tag is redundant."},
+    {p:"Ranjan",q:"Bigram P(I | Sam) on the Sam corpus is",o:["0.2","0.4","0.6","5/22"],a:2,w:"Sam is followed by I 3 times out of 5."},
+    {p:"Ranjan",q:"Why might backing off for an unseen trigram be wrong?",o:["Backoff is too slow","The unseen trigram may be ungrammatical, not just rare","Unigrams are always zero","It breaks Σλ = 1"],a:1,w:"\"Unseen data doesn't necessarily mean sparse\" (R7 00:50:59)."},
+    {p:"Ranjan",q:"With π_N = 0.75, b_N(killer) = 0.3, a_NN = 0.5, b_N(clown) = 0.4, P(killer clown, NN) =",o:["0.015","0.03","0.045","0.225"],a:2,w:"0.75 × 0.3 × 0.5 × 0.4 = 0.045 (slide 29)."},
+    {p:"Varshney",q:"The learning rate is far too large. Gradient descent will",o:["Converge slowly","Overshoot and move away from the minimum","Stop at a saddle","Always find the global minimum"],a:1,w:"Too small converges slowly; too large overshoots (D1 00:21:35)."},
+    {p:"Varshney",q:"Why insert a nonlinearity between layers?",o:["To speed up training","Without it the model stays linear (a straight line) and cannot bend to the data","To normalise inputs","To reduce parameters"],a:1,w:"Sigmoid squashes to (0, 1); the curve can then fit or overfit."},
+    {p:"Varshney",q:"Before text enters a neural network, you must first",o:["Apply softmax","Build a vocabulary and convert words to vectors","Compute BLEU","Remove all nouns"],a:1,w:"Networks are equations, and equations take only numbers."},
+    {p:"Varshney",q:"In skip-gram the input is",o:["The context words","The center word","The previous n−1 words","The whole sentence"],a:1,w:"Center → context; CBOW is the reverse."},
+    {p:"Varshney",q:"Why does word2vec keep two vectors per word?",o:["Each word has two meanings","A word plays two roles: center (v) and context (u)","To double accuracy","For two languages"],a:1,w:"\"Not two meanings, two roles\" (D2 00:10:44)."},
+    {p:"Varshney",q:"For next-token prediction over the vocabulary you apply",o:["Sigmoid","Softmax","ReLU only","No activation"],a:1,w:"Her \"very famous question\": sigmoid for binary, softmax over all words."},
+    {p:"Varshney",q:"Negative sampling replaces",o:["The embedding matrix","The full-vocabulary softmax normalisation","The context window","Tokenisation"],a:1,w:"Binary σ on the true pair plus k noise pairs."},
+    {p:"Varshney",q:"Negatives drawn from the raw unigram distribution are mostly \"the\" and \"of\". The slide's fix:",o:["Sample uniformly","Sample from U(w)^{3/4}","Use only rare words","Increase k to 1000"],a:1,w:"On screen, slide 28; also remove stopwords in pre-processing."},
+    {p:"Varshney",q:"P(k|ice)/P(k|steam) ≈ 1 for k = water means",o:["Water is tied to ice","Water is tied to steam","Water does not help distinguish ice from steam","The corpus is too small"],a:2,w:"≫1 → ice (solid), ≪1 → steam (gas), ≈1 → no discrimination."},
+    {p:"Varshney",q:"The main reason for GloVe, according to Prof. Varshney:",o:["Lower computational cost","Co-occurrence ratios carry meaning","It avoids embeddings","It uses attention"],a:1,w:"\"The reason we use GloVe is not that we want to reduce the computational cost\" (D3 00:45:01)."},
+    {p:"Varshney",q:"Embeddings for a sentiment classifier are best evaluated by",o:["Cosine similarity only","F1 on the downstream task","BLEU","Perplexity"],a:1,w:"Extrinsic evaluation: F1 for classification, BLEU for translation."},
+    {p:"Varshney",q:"\"dog\" and \"dogs\" get unrelated vectors. The fix she named:",o:["GloVe","fastText character n-grams","A larger window","Negative sampling"],a:1,w:"Word-level models ignore morphology; subword n-grams fix it and also handle OOV."}
+  ];
+  var form=document.getElementById("quizform");
+  Q.forEach(function(it,i){
+    var d=document.createElement("div"); d.className="q"; d.id="q"+i;
+    var who=document.createElement("p"); who.className="who"; who.textContent=(it.p==="Ranjan"?"PROF. RANJAN":"PROF. VARSHNEY"); d.appendChild(who);
+    var s=document.createElement("p"); s.className="stem"; s.textContent=(i+1)+". "+it.q; d.appendChild(s);
+    it.o.forEach(function(op,j){
+      var l=document.createElement("label"); var r=document.createElement("input");
+      r.type="radio"; r.name="q"+i; r.value=String(j); r.id="q"+i+"o"+j; l.htmlFor=r.id;
+      l.appendChild(r); l.appendChild(document.createTextNode(op)); d.appendChild(l);
+    });
+    var w=document.createElement("div"); w.className="why"; w.textContent=it.w; d.appendChild(w);
+    form.appendChild(d);
+  });
+  var score=document.getElementById("score");
+  document.getElementById("qcheck").addEventListener("click",function(){
+    var right=0, answered=0;
+    Q.forEach(function(it,i){
+      var d=document.getElementById("q"+i); var sel=d.querySelector("input:checked");
+      d.querySelectorAll("label").forEach(function(l,j){l.classList.remove("right","wrong"); if(j===it.a) l.classList.add("right");});
+      if(sel){answered++; var v=+sel.value; if(v===it.a) right++; else sel.parentNode.classList.add("wrong");}
+      d.classList.add("done");
+    });
+    score.textContent=right+" / "+Q.length+" correct"+(answered<Q.length?" ("+(Q.length-answered)+" unanswered)":"");
+  });
+  document.getElementById("qreset").addEventListener("click",function(){
+    form.reset(); score.textContent="";
+    Q.forEach(function(it,i){var d=document.getElementById("q"+i); d.classList.remove("done"); d.querySelectorAll("label").forEach(function(l){l.classList.remove("right","wrong");});});
+  });
+})();
+</script>
+
+</body></html>
